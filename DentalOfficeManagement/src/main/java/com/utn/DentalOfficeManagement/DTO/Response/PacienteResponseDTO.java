@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PacienteResponseDTO {
 
-    private Integer idPaciente;
-    private Integer idPlan;
+    private Long idPaciente;
+    private Long idPlan;
     private String nombre;
     private String dni;
     private LocalDate fechaNacimiento;

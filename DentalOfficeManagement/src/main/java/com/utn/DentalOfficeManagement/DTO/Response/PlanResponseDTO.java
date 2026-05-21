@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PlanResponseDTO {
 
-    private Integer idPlan;
-    private Integer obraSocialId;
+    private Long idPlan;
+    private Long obraSocialId;
     private String nombre;
     private String descripcion;
 }

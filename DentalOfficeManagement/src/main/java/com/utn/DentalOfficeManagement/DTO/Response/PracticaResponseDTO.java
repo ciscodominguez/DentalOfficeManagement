@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PracticaResponseDTO {
 
-    private Integer idPractica;
+    private Long idPractica;
     private String codigoInterno;
     private String nombre;
     private String descripcion;

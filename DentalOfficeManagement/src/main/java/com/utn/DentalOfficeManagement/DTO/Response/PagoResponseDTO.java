@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PagoResponseDTO {
 
-    private Integer idPago;
+    private Long idPago;
     private BigDecimal saldo;
     private String medio;
 }
