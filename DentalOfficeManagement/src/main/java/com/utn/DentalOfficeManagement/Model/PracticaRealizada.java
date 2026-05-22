@@ -16,7 +16,7 @@ public class PracticaRealizada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_practica_realizada")
-    private Integer idPracticaRealizada;
+    private Long idPracticaRealizada;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "practica_id", nullable = false)

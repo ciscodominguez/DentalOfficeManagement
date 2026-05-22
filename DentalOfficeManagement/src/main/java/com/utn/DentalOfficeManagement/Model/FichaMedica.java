@@ -13,7 +13,7 @@ public class FichaMedica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ficha_medica")
-    private Integer idFichaMedica;
+    private Long idFichaMedica;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id", nullable = false, unique = true)

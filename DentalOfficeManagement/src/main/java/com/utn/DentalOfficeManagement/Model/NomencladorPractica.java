@@ -13,7 +13,7 @@ public class NomencladorPractica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_nomenclador_practica")
-    private Integer idNomencladorPractica;
+    private Long idNomencladorPractica;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_obra_social", nullable = false)

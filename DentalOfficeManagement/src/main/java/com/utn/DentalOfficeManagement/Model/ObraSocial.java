@@ -13,7 +13,7 @@ public class ObraSocial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_obra_social")
-    private Integer idObraSocial;
+    private Long idObraSocial;
 
     @Column(name = "nombre", nullable = false, length = 150)
     private String nombre;

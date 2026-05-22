@@ -14,7 +14,7 @@ public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_plan")
-    private Integer idPlan;
+    private Long idPlan;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "obra_social_id", nullable = false)
