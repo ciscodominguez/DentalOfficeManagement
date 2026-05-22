@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -31,4 +32,8 @@ public interface PagoRepository extends JpaRepository<Pago, Integer> {
             @Param("desde") LocalDate desde,
             @Param("hasta") LocalDate hasta
     );
+
+    List<Pago> findByPracticaRealizada_Turno_Paciente_IdPaciente(Integer idPaciente);
+
+    List<Pago> findByFechaPagoBetween(LocalDate fechaInicio, LocalDate fechaFin);
 }

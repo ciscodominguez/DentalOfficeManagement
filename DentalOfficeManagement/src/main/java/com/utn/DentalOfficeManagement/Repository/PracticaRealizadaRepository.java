@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -40,5 +41,9 @@ public interface PracticaRealizadaRepository extends JpaRepository<PracticaReali
         AND pr.pago IS NULL
     """)
     List<PracticaRealizada> findSinPagoByPacienteId(@Param("idPaciente") Integer idPaciente);
+
+    List<PracticaRealizada> findByTurno_Paciente_IdPaciente(Integer idPaciente);
+
+    List<PracticaRealizada> findByPagoIsNull();
 }
 

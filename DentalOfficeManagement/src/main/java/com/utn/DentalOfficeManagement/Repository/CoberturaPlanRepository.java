@@ -17,4 +17,6 @@ public interface CoberturaPlanRepository extends JpaRepository<CoberturaPlan, In
     boolean existsByPlan_IdPlanAndPractica_IdPractica(
             Integer idPlan, Integer idPractica
     );
+
+    boolean existsByPlan_IdPlanAndPractica_IdPracticaAndIdCoberturaPlanNot(Integer idPlan, Integer idPractica, Integer id);
 }

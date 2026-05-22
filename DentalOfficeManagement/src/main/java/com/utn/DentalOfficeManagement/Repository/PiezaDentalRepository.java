@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -19,4 +20,6 @@ public interface PiezaDentalRepository extends JpaRepository<PiezaDental, Intege
         WHERE t.paciente.idPaciente = :idPaciente
     """)
     List<PiezaDental> findByPacienteId(@Param("idPaciente") Integer idPaciente);
+
+    List<PiezaDental> findByFichaMedica_Paciente_IdPaciente(Integer idPaciente);
 }
