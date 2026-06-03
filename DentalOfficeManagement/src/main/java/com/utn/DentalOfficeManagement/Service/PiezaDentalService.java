@@ -31,7 +31,7 @@ public class PiezaDentalService {
     }
 
     @Transactional(readOnly = true)
-    public PiezaDentalResponseDTO obtenerPiezaDentalPorId(Integer id) {
+    public PiezaDentalResponseDTO obtenerPiezaDentalPorId(Long id) {
         PiezaDental piezaDental = piezaDentalRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pieza Dental", "id", id));
         return piezaDentalMapper.entityToResponseDto(piezaDental);
@@ -45,13 +45,13 @@ public class PiezaDentalService {
     }
 
     @Transactional(readOnly = true)
-    public List<PiezaDentalResponseDTO> listarPiezasDentalesdePaciente(Integer idPaciente) {
+    public List<PiezaDentalResponseDTO> listarPiezasDentalesdePaciente(Long idPaciente) {
         return piezaDentalRepository.findByFichaMedica_Paciente_IdPaciente(idPaciente).stream()
                 .map(piezaDentalMapper::entityToResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public PiezaDentalResponseDTO actualizarPiezaDental(Integer id, PiezaDentalRequestDTO dto) {
+    public PiezaDentalResponseDTO actualizarPiezaDental(Long id, PiezaDentalRequestDTO dto) {
         PiezaDental piezaDental = piezaDentalRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pieza Dental", "id", id));
 
@@ -62,7 +62,7 @@ public class PiezaDentalService {
         return piezaDentalMapper.entityToResponseDto(piezaDentalActualizada);
     }
 
-    public void eliminarPiezaDental(Integer id) {
+    public void eliminarPiezaDental(Long id) {
         if (!piezaDentalRepository.existsById(id)) {
             throw new ResourceNotFoundException("Pieza Dental", "id", id);
         }

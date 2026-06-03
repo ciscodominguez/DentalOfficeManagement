@@ -32,7 +32,7 @@ public class PlanController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener plan por ID", description = "Obtiene un plan específico por su ID")
-    public ResponseEntity<PlanResponseDTO> obtenerPlanPorId(@PathVariable Integer id) {
+    public ResponseEntity<PlanResponseDTO> obtenerPlanPorId(@PathVariable Long id) {
         PlanResponseDTO plan = planService.obtenerPlanPorId(id);
         return ResponseEntity.ok(plan);
     }
@@ -46,7 +46,7 @@ public class PlanController {
 
     @GetMapping("/obra-social/{idObraSocial}")
     @Operation(summary = "Listar planes por obra social", description = "Obtiene todos los planes de una obra social específica")
-    public ResponseEntity<List<PlanResponseDTO>> listarPlanesDeObraSocial(@PathVariable Integer idObraSocial) {
+    public ResponseEntity<List<PlanResponseDTO>> listarPlanesDeObraSocial(@PathVariable Long idObraSocial) {
         List<PlanResponseDTO> planes = planService.listarPlanesDeObraSocial(idObraSocial);
         return ResponseEntity.ok(planes);
     }
@@ -54,7 +54,7 @@ public class PlanController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un plan", description = "Actualiza los datos de un plan existente")
     public ResponseEntity<PlanResponseDTO> actualizarPlan(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody PlanRequestDTO dto) {
         PlanResponseDTO plan = planService.actualizarPlan(id, dto);
         return ResponseEntity.ok(plan);
@@ -62,7 +62,7 @@ public class PlanController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un plan", description = "Elimina un plan del sistema")
-    public ResponseEntity<Void> eliminarPlan(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarPlan(@PathVariable Long id) {
         planService.eliminarPlan(id);
         return ResponseEntity.noContent().build();
     }

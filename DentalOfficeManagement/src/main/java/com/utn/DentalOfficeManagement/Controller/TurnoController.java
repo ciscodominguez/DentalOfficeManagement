@@ -33,7 +33,7 @@ public class TurnoController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener turno por ID", description = "Obtiene un turno específico por su ID")
-    public ResponseEntity<TurnoResponseDTO> obtenerTurnoPorId(@PathVariable Integer id) {
+    public ResponseEntity<TurnoResponseDTO> obtenerTurnoPorId(@PathVariable Long id) {
         TurnoResponseDTO turno = turnoService.obtenerTurnoPorId(id);
         return ResponseEntity.ok(turno);
     }
@@ -47,14 +47,14 @@ public class TurnoController {
 
     @GetMapping("/paciente/{idPaciente}")
     @Operation(summary = "Listar turnos por paciente", description = "Obtiene todos los turnos de un paciente específico")
-    public ResponseEntity<List<TurnoResponseDTO>> listarTurnosPorPaciente(@PathVariable Integer idPaciente) {
+    public ResponseEntity<List<TurnoResponseDTO>> listarTurnosPorPaciente(@PathVariable Long idPaciente) {
         List<TurnoResponseDTO> turnos = turnoService.listarTurnosPorPaciente(idPaciente);
         return ResponseEntity.ok(turnos);
     }
 
     @GetMapping("/odontologo/{idOdontologo}")
     @Operation(summary = "Listar turnos por odontólogo", description = "Obtiene todos los turnos asignados a un odontólogo específico")
-    public ResponseEntity<List<TurnoResponseDTO>> listarTurnosPorOdontologo(@PathVariable Integer idOdontologo) {
+    public ResponseEntity<List<TurnoResponseDTO>> listarTurnosPorOdontologo(@PathVariable Long idOdontologo) {
         List<TurnoResponseDTO> turnos = turnoService.listarTurnosPorOdontologo(idOdontologo);
         return ResponseEntity.ok(turnos);
     }
@@ -76,7 +76,7 @@ public class TurnoController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un turno", description = "Actualiza los datos de un turno existente")
     public ResponseEntity<TurnoResponseDTO> actualizarTurno(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody TurnoRequestDTO dto) {
         TurnoResponseDTO turno = turnoService.actualizarTurno(id, dto);
         return ResponseEntity.ok(turno);
@@ -85,7 +85,7 @@ public class TurnoController {
     @PatchMapping("/{id}/estado")
     @Operation(summary = "Cambiar estado de un turno", description = "Cambia el estado de un turno específico")
     public ResponseEntity<TurnoResponseDTO> cambiarEstadoTurno(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @RequestParam String estado) {
         TurnoResponseDTO turno = turnoService.cambiarEstadoTurno(id, estado);
         return ResponseEntity.ok(turno);
@@ -93,7 +93,7 @@ public class TurnoController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un turno", description = "Elimina un turno del sistema")
-    public ResponseEntity<Void> eliminarTurno(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarTurno(@PathVariable Long id) {
         turnoService.eliminarTurno(id);
         return ResponseEntity.noContent().build();
     }

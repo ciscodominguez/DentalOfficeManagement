@@ -36,7 +36,7 @@ public class PracticaService {
     }
 
     @Transactional(readOnly = true)
-    public PracticaResponseDTO obtenerPracticaPorId(Integer id) {
+    public PracticaResponseDTO obtenerPracticaPorId(Long id) {
         Practica practica = practicaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", id));
         return practicaMapper.entityToResponseDto(practica);
@@ -56,7 +56,7 @@ public class PracticaService {
                 .collect(Collectors.toList());
     }
 
-    public PracticaResponseDTO actualizarPractica(Integer id, PracticaRequestDTO dto) {
+    public PracticaResponseDTO actualizarPractica(Long id, PracticaRequestDTO dto) {
         Practica practica = practicaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", id));
 
@@ -72,7 +72,7 @@ public class PracticaService {
         return practicaMapper.entityToResponseDto(practicaActualizada);
     }
 
-    public void eliminarPractica(Integer id) {
+    public void eliminarPractica(Long id) {
         if (!practicaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Práctica", "id", id);
         }

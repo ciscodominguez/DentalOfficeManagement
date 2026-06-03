@@ -33,7 +33,7 @@ public class PagoController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener pago por ID", description = "Obtiene un pago específico por su ID")
-    public ResponseEntity<PagoResponseDTO> obtenerPagoPorId(@PathVariable Integer id) {
+    public ResponseEntity<PagoResponseDTO> obtenerPagoPorId(@PathVariable Long id) {
         PagoResponseDTO pago = pagoService.obtenerPagoPorId(id);
         return ResponseEntity.ok(pago);
     }
@@ -47,7 +47,7 @@ public class PagoController {
 
     @GetMapping("/paciente/{idPaciente}")
     @Operation(summary = "Listar pagos por paciente", description = "Obtiene todos los pagos de un paciente específico")
-    public ResponseEntity<List<PagoResponseDTO>> listarPagosPorPaciente(@PathVariable Integer idPaciente) {
+    public ResponseEntity<List<PagoResponseDTO>> listarPagosPorPaciente(@PathVariable Long idPaciente) {
         List<PagoResponseDTO> pagos = pagoService.listarPagosPorPaciente(idPaciente);
         return ResponseEntity.ok(pagos);
     }
@@ -64,7 +64,7 @@ public class PagoController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un pago", description = "Actualiza los datos de un pago existente")
     public ResponseEntity<PagoResponseDTO> actualizarPago(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody PagoRequestDTO dto) {
         PagoResponseDTO pago = pagoService.actualizarPago(id, dto);
         return ResponseEntity.ok(pago);
@@ -72,7 +72,7 @@ public class PagoController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un pago", description = "Elimina un pago del sistema")
-    public ResponseEntity<Void> eliminarPago(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarPago(@PathVariable Long id) {
         pagoService.eliminarPago(id);
         return ResponseEntity.noContent().build();
     }

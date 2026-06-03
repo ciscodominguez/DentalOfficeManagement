@@ -32,7 +32,7 @@ public class PagoService {
     }
 
     @Transactional(readOnly = true)
-    public PagoResponseDTO obtenerPagoPorId(Integer id) {
+    public PagoResponseDTO obtenerPagoPorId(Long id) {
         Pago pago = pagoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pago", "id", id));
         return pagoMapper.entityToResponseDto(pago);
@@ -46,7 +46,7 @@ public class PagoService {
     }
 
     @Transactional(readOnly = true)
-    public List<PagoResponseDTO> listarPagosPorPaciente(Integer idPaciente) {
+    public List<PagoResponseDTO> listarPagosPorPaciente(Long idPaciente) {
         return pagoRepository.findByPracticaRealizada_Turno_Paciente_IdPaciente(idPaciente).stream()
                 .map(pagoMapper::entityToResponseDto)
                 .collect(Collectors.toList());
@@ -59,7 +59,7 @@ public class PagoService {
                 .collect(Collectors.toList());
     }
 
-    public PagoResponseDTO actualizarPago(Integer id, PagoRequestDTO dto) {
+    public PagoResponseDTO actualizarPago(Long id, PagoRequestDTO dto) {
         Pago pago = pagoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pago", "id", id));
 
@@ -69,7 +69,7 @@ public class PagoService {
         return pagoMapper.entityToResponseDto(pagoActualizado);
     }
 
-    public void eliminarPago(Integer id) {
+    public void eliminarPago(Long id) {
         if (!pagoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Pago", "id", id);
         }

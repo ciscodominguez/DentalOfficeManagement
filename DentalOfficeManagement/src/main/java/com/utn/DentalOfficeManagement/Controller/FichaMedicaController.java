@@ -30,7 +30,7 @@ public class FichaMedicaController {
 
     @GetMapping("/paciente/{idPaciente}")
     @Operation(summary = "Obtener ficha médica de un paciente", description = "Obtiene la ficha médica de un paciente específico")
-    public ResponseEntity<FichaMedicaResponseDTO> obtenerFichaMedicaPorPaciente(@PathVariable Integer idPaciente) {
+    public ResponseEntity<FichaMedicaResponseDTO> obtenerFichaMedicaPorPaciente(@PathVariable Long idPaciente) {
         FichaMedicaResponseDTO fichaMedica = fichaMedicaService.obtenerFichaMedicaPorPaciente(idPaciente);
         return ResponseEntity.ok(fichaMedica);
     }
@@ -38,7 +38,7 @@ public class FichaMedicaController {
     @PutMapping("/paciente/{idPaciente}")
     @Operation(summary = "Actualizar ficha médica de un paciente", description = "Actualiza los datos de la ficha médica de un paciente")
     public ResponseEntity<FichaMedicaResponseDTO> actualizarFichaMedica(
-            @PathVariable Integer idPaciente,
+            @PathVariable Long idPaciente,
             @Valid @RequestBody FichaMedicaRequestDTO dto) {
         FichaMedicaResponseDTO fichaMedica = fichaMedicaService.actualizarFichaMedica(idPaciente, dto);
         return ResponseEntity.ok(fichaMedica);
@@ -46,7 +46,7 @@ public class FichaMedicaController {
 
     @DeleteMapping("/paciente/{idPaciente}")
     @Operation(summary = "Eliminar ficha médica de un paciente", description = "Elimina la ficha médica de un paciente")
-    public ResponseEntity<Void> eliminarFichaMedica(@PathVariable Integer idPaciente) {
+    public ResponseEntity<Void> eliminarFichaMedica(@PathVariable Long idPaciente) {
         fichaMedicaService.eliminarFichaMedica(idPaciente);
         return ResponseEntity.noContent().build();
     }

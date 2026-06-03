@@ -14,15 +14,15 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface TurnoRepository extends JpaRepository<Turno, Integer> {
-    List<Turno> findByPaciente_IdPaciente(Integer idPaciente);
-    List<Turno> findByOdontologo_IdOdontologo(Integer idOdontologo);
+public interface TurnoRepository extends JpaRepository<Turno, Long> {
+    List<Turno> findByPaciente_IdPaciente(Long idPaciente);
+    List<Turno> findByOdontologo_IdOdontologo(Long idOdontologo);
     List<Turno> findByEstado(String estado);
     List<Turno> findByFechaBetween(LocalDate desde, LocalDate hasta);
     List<Turno> findByOdontologo_IdOdontologoAndFechaBetween(
-            Integer idOdontologo, LocalDate desde, LocalDate hasta
+            Long idOdontologo, LocalDate desde, LocalDate hasta
     );
-    List<Turno> findByPaciente_IdPacienteAndEstado(Integer idPaciente, String estado);
+    List<Turno> findByPaciente_IdPacienteAndEstado(Long idPaciente, String estado);
 
     @Query("""
         SELECT COUNT(t) > 0 FROM Turno t
@@ -32,15 +32,15 @@ public interface TurnoRepository extends JpaRepository<Turno, Integer> {
         AND t.estado != 'CANCELADO'
     """)
     boolean existsTurnoSolapado(
-            @Param("idOdontologo") Integer idOdontologo,
+            @Param("idOdontologo") Long idOdontologo,
             @Param("fecha") LocalDate fecha,
             @Param("hora") LocalTime hora
     );
 
-    boolean existsByOdontologo_IdOdontologoAndFechaAndHora(Integer idOdontologo, @NotNull(message = "La fecha es obligatoria") @FutureOrPresent(message = "La fecha no puede ser en el pasado") LocalDate fecha, @NotNull(message = "La hora es obligatoria") LocalTime hora);
+    boolean existsByOdontologo_IdOdontologoAndFechaAndHora(Long idOdontologo, @NotNull(message = "La fecha es obligatoria") @FutureOrPresent(message = "La fecha no puede ser en el pasado") LocalDate fecha, @NotNull(message = "La hora es obligatoria") LocalTime hora);
 
     List<Turno> findByFecha(LocalDate fecha);
 
-    boolean existsByOdontologo_IdOdontologoAndFechaAndHoraAndIdTurnoNot(Integer idOdontologo, @NotNull(message = "La fecha es obligatoria") @FutureOrPresent(message = "La fecha no puede ser en el pasado") LocalDate fecha, @NotNull(message = "La hora es obligatoria") LocalTime hora, Integer id);
+    boolean existsByOdontologo_IdOdontologoAndFechaAndHoraAndIdTurnoNot(Long idOdontologo, @NotNull(message = "La fecha es obligatoria") @FutureOrPresent(message = "La fecha no puede ser en el pasado") LocalDate fecha, @NotNull(message = "La hora es obligatoria") LocalTime hora, Long id);
 }
 

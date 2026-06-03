@@ -32,7 +32,7 @@ public class ObraSocialController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener obra social por ID", description = "Obtiene una obra social específica por su ID")
-    public ResponseEntity<ObraSocialResponseDTO> obtenerObraSocialPorId(@PathVariable Integer id) {
+    public ResponseEntity<ObraSocialResponseDTO> obtenerObraSocialPorId(@PathVariable Long id) {
         ObraSocialResponseDTO obraSocial = obraSocialService.obtenerObraSocialPorId(id);
         return ResponseEntity.ok(obraSocial);
     }
@@ -54,7 +54,7 @@ public class ObraSocialController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar una obra social", description = "Actualiza los datos de una obra social existente")
     public ResponseEntity<ObraSocialResponseDTO> actualizarObraSocial(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody ObraSocialRequestDTO dto) {
         ObraSocialResponseDTO obraSocial = obraSocialService.actualizarObraSocial(id, dto);
         return ResponseEntity.ok(obraSocial);
@@ -62,7 +62,7 @@ public class ObraSocialController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar una obra social", description = "Elimina una obra social del sistema")
-    public ResponseEntity<Void> eliminarObraSocial(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarObraSocial(@PathVariable Long id) {
         obraSocialService.eliminarObraSocial(id);
         return ResponseEntity.noContent().build();
     }

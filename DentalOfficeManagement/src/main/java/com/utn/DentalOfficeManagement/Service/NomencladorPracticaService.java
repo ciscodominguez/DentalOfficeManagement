@@ -34,10 +34,10 @@ public class NomencladorPracticaService {
     }
 
     public NomencladorPracticaResponseDTO crearNomenclador(NomencladorPracticaRequestDTO dto) {
-        ObraSocial obraSocial = obraSocialRepository.findById(dto.getObraSocialId().intValue())
+        ObraSocial obraSocial = obraSocialRepository.findById(dto.getObraSocialId())
                 .orElseThrow(() -> new ResourceNotFoundException("Obra Social", "id", dto.getObraSocialId()));
 
-        Practica practica = practicaRepository.findById(dto.getPracticaId().intValue())
+        Practica practica = practicaRepository.findById(dto.getPracticaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", dto.getPracticaId()));
 
         if (nomencladorPracticaRepository.existsByObraSocial_IdObraSocialAndPractica_IdPractica(obraSocial.getIdObraSocial(), practica.getIdPractica())) {
@@ -52,7 +52,7 @@ public class NomencladorPracticaService {
     }
 
     @Transactional(readOnly = true)
-    public NomencladorPracticaResponseDTO obtenerNomencladorPorId(Integer id) {
+    public NomencladorPracticaResponseDTO obtenerNomencladorPorId(Long id) {
         NomencladorPractica nomenclador = nomencladorPracticaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nomenclador", "id", id));
         return nomencladorPracticaMapper.entityToResponseDto(nomenclador);
@@ -66,20 +66,20 @@ public class NomencladorPracticaService {
     }
 
     @Transactional(readOnly = true)
-    public List<NomencladorPracticaResponseDTO> listarNomencladorDeObraSocial(Integer idObraSocial) {
+    public List<NomencladorPracticaResponseDTO> listarNomencladorDeObraSocial(Long idObraSocial) {
         return nomencladorPracticaRepository.findByObraSocial_IdObraSocial(idObraSocial).stream()
                 .map(nomencladorPracticaMapper::entityToResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public NomencladorPracticaResponseDTO actualizarNomenclador(Integer id, NomencladorPracticaRequestDTO dto) {
+    public NomencladorPracticaResponseDTO actualizarNomenclador(Long id, NomencladorPracticaRequestDTO dto) {
         NomencladorPractica nomenclador = nomencladorPracticaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Nomenclador", "id", id));
 
-        ObraSocial obraSocial = obraSocialRepository.findById(dto.getObraSocialId().intValue())
+        ObraSocial obraSocial = obraSocialRepository.findById(dto.getObraSocialId())
                 .orElseThrow(() -> new ResourceNotFoundException("Obra Social", "id", dto.getObraSocialId()));
 
-        Practica practica = practicaRepository.findById(dto.getPracticaId().intValue())
+        Practica practica = practicaRepository.findById(dto.getPracticaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", dto.getPracticaId()));
 
         if (nomencladorPracticaRepository.existsByObraSocial_IdObraSocialAndPractica_IdPracticaAndIdNomencladorNot(obraSocial.getIdObraSocial(), practica.getIdPractica(), id)) {
@@ -93,7 +93,7 @@ public class NomencladorPracticaService {
         return nomencladorPracticaMapper.entityToResponseDto(nomencladorActualizado);
     }
 
-    public void eliminarNomenclador(Integer id) {
+    public void eliminarNomenclador(Long id) {
         if (!nomencladorPracticaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Nomenclador", "id", id);
         }

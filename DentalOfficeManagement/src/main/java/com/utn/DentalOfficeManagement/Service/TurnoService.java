@@ -36,10 +36,10 @@ public class TurnoService {
     }
 
     public TurnoResponseDTO crearTurno(TurnoRequestDTO dto) {
-        Paciente paciente = pacienteRepository.findById(dto.getPacienteId().intValue())
+        Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente", "id", dto.getPacienteId()));
 
-        Odontologo odontologo = odontologoRepository.findById(dto.getOdontologoId().intValue())
+        Odontologo odontologo = odontologoRepository.findById(dto.getOdontologoId())
                 .orElseThrow(() -> new ResourceNotFoundException("Odontólogo", "id", dto.getOdontologoId()));
 
         // Validar que no exista otro turno para el mismo odontólogo a la misma fecha y hora
@@ -55,7 +55,7 @@ public class TurnoService {
     }
 
     @Transactional(readOnly = true)
-    public TurnoResponseDTO obtenerTurnoPorId(Integer id) {
+    public TurnoResponseDTO obtenerTurnoPorId(Long id) {
         Turno turno = turnoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Turno", "id", id));
         return turnoMapper.toResponse(turno);
@@ -69,14 +69,14 @@ public class TurnoService {
     }
 
     @Transactional(readOnly = true)
-    public List<TurnoResponseDTO> listarTurnosPorPaciente(Integer idPaciente) {
+    public List<TurnoResponseDTO> listarTurnosPorPaciente(Long idPaciente) {
         return turnoRepository.findByPaciente_IdPaciente(idPaciente).stream()
                 .map(turnoMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<TurnoResponseDTO> listarTurnosPorOdontologo(Integer idOdontologo) {
+    public List<TurnoResponseDTO> listarTurnosPorOdontologo(Long idOdontologo) {
         return turnoRepository.findByOdontologo_IdOdontologo(idOdontologo).stream()
                 .map(turnoMapper::toResponse)
                 .collect(Collectors.toList());
@@ -96,14 +96,14 @@ public class TurnoService {
                 .collect(Collectors.toList());
     }
 
-    public TurnoResponseDTO actualizarTurno(Integer id, TurnoRequestDTO dto) {
+    public TurnoResponseDTO actualizarTurno(Long id, TurnoRequestDTO dto) {
         Turno turno = turnoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Turno", "id", id));
 
-        Paciente paciente = pacienteRepository.findById(dto.getPacienteId().intValue())
+        Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente", "id", dto.getPacienteId()));
 
-        Odontologo odontologo = odontologoRepository.findById(dto.getOdontologoId().intValue())
+        Odontologo odontologo = odontologoRepository.findById(dto.getOdontologoId())
                 .orElseThrow(() -> new ResourceNotFoundException("Odontólogo", "id", dto.getOdontologoId()));
 
         // Validar que no exista otro turno para el mismo odontólogo a la misma fecha y hora (excepto el actual)
@@ -121,7 +121,7 @@ public class TurnoService {
         return turnoMapper.toResponse(turnoActualizado);
     }
 
-    public TurnoResponseDTO cambiarEstadoTurno(Integer id, String nuevoEstado) {
+    public TurnoResponseDTO cambiarEstadoTurno(Long id, String nuevoEstado) {
         Turno turno = turnoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Turno", "id", id));
         turno.setEstado(nuevoEstado);
@@ -129,7 +129,7 @@ public class TurnoService {
         return turnoMapper.toResponse(turnoActualizado);
     }
 
-    public void eliminarTurno(Integer id) {
+    public void eliminarTurno(Long id) {
         if (!turnoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Turno", "id", id);
         }

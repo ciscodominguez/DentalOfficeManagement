@@ -30,7 +30,7 @@ public class OdontologoService {
     }
 
     public OdontologoResponseDTO crearOdontologo(OdontologoRequestDTO dto) {
-        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId().intValue())
+        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", dto.getUsuarioId()));
 
         if (odontologoRepository.existsByMatricula(dto.getMatricula())) {
@@ -44,7 +44,7 @@ public class OdontologoService {
     }
 
     @Transactional(readOnly = true)
-    public OdontologoResponseDTO obtenerOdontologoPorId(Integer id) {
+    public OdontologoResponseDTO obtenerOdontologoPorId(Long id) {
         Odontologo odontologo = odontologoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Odontólogo", "id", id));
         return odontologoMapper.entityToResponseDto(odontologo);
@@ -71,7 +71,7 @@ public class OdontologoService {
                 .collect(Collectors.toList());
     }
 
-    public OdontologoResponseDTO actualizarOdontologo(Integer id, OdontologoRequestDTO dto) {
+    public OdontologoResponseDTO actualizarOdontologo(Long id, OdontologoRequestDTO dto) {
         Odontologo odontologo = odontologoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Odontólogo", "id", id));
 
@@ -79,7 +79,7 @@ public class OdontologoService {
             throw new DuplicateResourceException("Odontólogo", "matrícula", dto.getMatricula());
         }
 
-        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId().intValue())
+        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", dto.getUsuarioId()));
 
         odontologo.setUsuario(usuario);
@@ -90,7 +90,7 @@ public class OdontologoService {
         return odontologoMapper.entityToResponseDto(odontologoActualizado);
     }
 
-    public void eliminarOdontologo(Integer id) {
+    public void eliminarOdontologo(Long id) {
         if (!odontologoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Odontólogo", "id", id);
         }

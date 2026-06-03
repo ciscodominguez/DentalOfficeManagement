@@ -34,7 +34,7 @@ public class PacienteService {
             throw new DuplicateResourceException("Paciente", "DNI", dto.getDni());
         }
 
-        Plan plan = planRepository.findById(dto.getIdPlan().intValue())
+        Plan plan = planRepository.findById(dto.getIdPlan())
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", dto.getIdPlan()));
 
         Paciente paciente = pacienteMapper.requestDtoToEntity(dto);
@@ -44,7 +44,7 @@ public class PacienteService {
     }
 
     @Transactional(readOnly = true)
-    public PacienteResponseDTO obtenerPacientePorId(Integer id) {
+    public PacienteResponseDTO obtenerPacientePorId(Long id) {
         Paciente paciente = pacienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente", "id", id));
         return pacienteMapper.entityToResponseDto(paciente);
@@ -72,13 +72,13 @@ public class PacienteService {
     }
 
     @Transactional(readOnly = true)
-    public List<PacienteResponseDTO> listarPacientesPorPlan(Integer idPlan) {
+    public List<PacienteResponseDTO> listarPacientesPorPlan(Long idPlan) {
         return pacienteRepository.findByPlan_IdPlan(idPlan).stream()
                 .map(pacienteMapper::entityToResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public PacienteResponseDTO actualizarPaciente(Integer id, PacienteRequestDTO dto) {
+    public PacienteResponseDTO actualizarPaciente(Long id, PacienteRequestDTO dto) {
         Paciente paciente = pacienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente", "id", id));
 
@@ -87,7 +87,7 @@ public class PacienteService {
             throw new DuplicateResourceException("Paciente", "DNI", dto.getDni());
         }
 
-        Plan plan = planRepository.findById(dto.getIdPlan().intValue())
+        Plan plan = planRepository.findById(dto.getIdPlan())
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", dto.getIdPlan()));
 
         paciente.setNombre(dto.getNombre());
@@ -101,7 +101,7 @@ public class PacienteService {
         return pacienteMapper.entityToResponseDto(pacienteActualizado);
     }
 
-    public void eliminarPaciente(Integer id) {
+    public void eliminarPaciente(Long id) {
         if (!pacienteRepository.existsById(id)) {
             throw new ResourceNotFoundException("Paciente", "id", id);
         }

@@ -32,7 +32,7 @@ public class OdontologoController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener odontólogo por ID", description = "Obtiene un odontólogo específico por su ID")
-    public ResponseEntity<OdontologoResponseDTO> obtenerOdontologoPorId(@PathVariable Integer id) {
+    public ResponseEntity<OdontologoResponseDTO> obtenerOdontologoPorId(@PathVariable Long id) {
         OdontologoResponseDTO odontologo = odontologoService.obtenerOdontologoPorId(id);
         return ResponseEntity.ok(odontologo);
     }
@@ -61,7 +61,7 @@ public class OdontologoController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un odontólogo", description = "Actualiza los datos de un odontólogo existente")
     public ResponseEntity<OdontologoResponseDTO> actualizarOdontologo(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody OdontologoRequestDTO dto) {
         OdontologoResponseDTO odontologo = odontologoService.actualizarOdontologo(id, dto);
         return ResponseEntity.ok(odontologo);
@@ -69,7 +69,7 @@ public class OdontologoController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un odontólogo", description = "Elimina un odontólogo del sistema")
-    public ResponseEntity<Void> eliminarOdontologo(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarOdontologo(@PathVariable Long id) {
         odontologoService.eliminarOdontologo(id);
         return ResponseEntity.noContent().build();
     }

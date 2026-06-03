@@ -27,27 +27,27 @@ public class FichaMedicaService {
     }
 
     public FichaMedicaResponseDTO crearFichaMedica(FichaMedicaRequestDTO dto) {
-        Paciente paciente = pacienteRepository.findById(dto.getPacienteId().intValue())
+        Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente", "id", dto.getPacienteId()));
 
         if (fichaMedicaRepository.existsByPaciente_IdPaciente(paciente.getIdPaciente())) {
             throw new DuplicateResourceException("Ficha Médica", "paciente", dto.getPacienteId());
         }
 
-        FichaMedica fichaMedica = fichaMedicaMapper.toEntity(dto);
+        FichaMedica fichaMedica = fichaMedicaMapper.requestDtoToEntity(dto);
         fichaMedica.setPaciente(paciente);
         FichaMedica fichaMedicaGuardada = fichaMedicaRepository.save(fichaMedica);
-        return fichaMedicaMapper.toResponseDTO(fichaMedicaGuardada);
+        return fichaMedicaMapper.entityToResponseDto(fichaMedicaGuardada);
     }
 
     @Transactional(readOnly = true)
-    public FichaMedicaResponseDTO obtenerFichaMedicaPorPaciente(Integer idPaciente) {
+    public FichaMedicaResponseDTO obtenerFichaMedicaPorPaciente(Long idPaciente) {
         FichaMedica fichaMedica = fichaMedicaRepository.findByPaciente_IdPaciente(idPaciente)
                 .orElseThrow(() -> new ResourceNotFoundException("Ficha Médica", "paciente", idPaciente));
-        return fichaMedicaMapper.toResponseDTO(fichaMedica);
+        return fichaMedicaMapper.entityToResponseDto(fichaMedica);
     }
 
-    public FichaMedicaResponseDTO actualizarFichaMedica(Integer idPaciente, FichaMedicaRequestDTO dto) {
+    public FichaMedicaResponseDTO actualizarFichaMedica(Long idPaciente, FichaMedicaRequestDTO dto) {
         FichaMedica fichaMedica = fichaMedicaRepository.findByPaciente_IdPaciente(idPaciente)
                 .orElseThrow(() -> new ResourceNotFoundException("Ficha Médica", "paciente", idPaciente));
 
@@ -56,10 +56,10 @@ public class FichaMedicaService {
         fichaMedica.setAntecedentes(dto.getAntecedentes());
         fichaMedica.setGrupoSanguineo(dto.getGrupoSanguineo());
         FichaMedica fichaMedicaActualizada = fichaMedicaRepository.save(fichaMedica);
-        return fichaMedicaMapper.toResponseDTO(fichaMedicaActualizada);
+        return fichaMedicaMapper.entityToResponseDto(fichaMedicaActualizada);
     }
 
-    public void eliminarFichaMedica(Integer idPaciente) {
+    public void eliminarFichaMedica(Long idPaciente) {
         FichaMedica fichaMedica = fichaMedicaRepository.findByPaciente_IdPaciente(idPaciente)
                 .orElseThrow(() -> new ResourceNotFoundException("Ficha Médica", "paciente", idPaciente));
         fichaMedicaRepository.delete(fichaMedica);
