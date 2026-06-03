@@ -32,7 +32,7 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener usuario por ID", description = "Obtiene un usuario específico por su ID")
-    public ResponseEntity<UsuarioResponseDTO> obtenerUsuarioPorId(@PathVariable Integer id) {
+    public ResponseEntity<UsuarioResponseDTO> obtenerUsuarioPorId(@PathVariable Long id) {
         UsuarioResponseDTO usuario = usuarioService.obtenerUsuarioPorId(id);
         return ResponseEntity.ok(usuario);
     }
@@ -54,7 +54,7 @@ public class UsuarioController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un usuario", description = "Actualiza los datos de un usuario existente")
     public ResponseEntity<UsuarioResponseDTO> actualizarUsuario(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody UsuarioRequestDTO dto) {
         UsuarioResponseDTO usuario = usuarioService.actualizarUsuario(id, dto);
         return ResponseEntity.ok(usuario);
@@ -63,7 +63,7 @@ public class UsuarioController {
     @PatchMapping("/{id}/cambiar-contrasenia")
     @Operation(summary = "Cambiar contraseña de usuario", description = "Cambia la contraseña de un usuario específico")
     public ResponseEntity<UsuarioResponseDTO> cambiarContrasenia(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @RequestParam String nuevaContrasenia) {
         UsuarioResponseDTO usuario = usuarioService.cambiarContrasenia(id, nuevaContrasenia);
         return ResponseEntity.ok(usuario);
@@ -71,7 +71,7 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un usuario", description = "Elimina un usuario del sistema")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }

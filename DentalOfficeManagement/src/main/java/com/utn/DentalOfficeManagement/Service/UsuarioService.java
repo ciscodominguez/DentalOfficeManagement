@@ -42,7 +42,7 @@ public class UsuarioService {
             throw new DuplicateResourceException("Usuario", "email", dto.getEmail());
         }
 
-        Rol rol = rolRepository.findById(dto.getIdRol().intValue())
+        Rol rol = rolRepository.findById(dto.getIdRol())
                 .orElseThrow(() -> new ResourceNotFoundException("Rol", "id", dto.getIdRol()));
 
         Usuario usuario = usuarioMapper.toEntity(dto);
@@ -53,7 +53,7 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
-    public UsuarioResponseDTO obtenerUsuarioPorId(Integer id) {
+    public UsuarioResponseDTO obtenerUsuarioPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", id));
         return usuarioMapper.toResponse(usuario);
@@ -73,8 +73,7 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    public UsuarioResponseDTO actualizarUsuario(Integer id, UsuarioRequestDTO dto) {
-        Usuario usuario = usuarioRepository.findById(id)
+    public UsuarioResponseDTO actualizarUsuario(Long id, UsuarioRequestDTO dto) {        Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", id));
 
         if (!usuario.getUsername().equals(dto.getUsername()) && usuarioRepository.existsByUsername(dto.getUsername())) {
@@ -85,7 +84,7 @@ public class UsuarioService {
             throw new DuplicateResourceException("Usuario", "email", dto.getEmail());
         }
 
-        Rol rol = rolRepository.findById(dto.getIdRol().intValue())
+        Rol rol = rolRepository.findById(dto.getIdRol())
                 .orElseThrow(() -> new ResourceNotFoundException("Rol", "id", dto.getIdRol()));
 
         usuario.setUsername(dto.getUsername());
@@ -96,7 +95,7 @@ public class UsuarioService {
         return usuarioMapper.toResponse(usuarioActualizado);
     }
 
-    public UsuarioResponseDTO cambiarContrasenia(Integer id, String nuevaContrasenia) {
+    public UsuarioResponseDTO cambiarContrasenia(Long id, String nuevaContrasenia) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", id));
         usuario.setContrasenia(passwordEncoder.encode(nuevaContrasenia));
@@ -114,7 +113,7 @@ public class UsuarioService {
         }
     }
 
-    public void eliminarUsuario(Integer id) {
+    public void eliminarUsuario(Long id) {
         if (!usuarioRepository.existsById(id)) {
             throw new ResourceNotFoundException("Usuario", "id", id);
         }

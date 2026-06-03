@@ -8,10 +8,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface NomencladorPracticaRepository  extends JpaRepository <NomencladorPractica, Integer> {
-    boolean existsByObraSocial_IdObraSocialAndPractica_IdPractica(Integer idObraSocial, Integer idPractica);
+public interface NomencladorPracticaRepository  extends JpaRepository <NomencladorPractica, Long> {
+    boolean existsByObraSocial_IdObraSocialAndPractica_IdPractica(Long idObraSocial, Long idPractica);
 
-    List<NomencladorPractica> findByObraSocial_IdObraSocial(Integer idObraSocial);
+    List<NomencladorPractica> findByObraSocial_IdObraSocial(Long idObraSocial);
 
-    boolean existsByObraSocial_IdObraSocialAndPractica_IdPracticaAndIdNomencladorNot(Integer idObraSocial, Integer idPractica, Integer id);
+    boolean existsByObraSocial_IdObraSocialAndPractica_IdPracticaAndIdNomencladorNot(Long idObraSocial, Long idPractica, Long id);
 }

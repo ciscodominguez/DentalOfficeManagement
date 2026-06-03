@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PlanRepository extends JpaRepository<Plan, Integer> {
-    List<Plan> findByObraSocial_IdObraSocial(Integer idObraSocial);
+public interface PlanRepository extends JpaRepository<Plan, Long> {
+    List<Plan> findByObraSocial_IdObraSocial(Long idObraSocial);
     List<Plan> findByNombreContainingIgnoreCase(String nombre);
-    boolean existsByNombreAndObraSocial_IdObraSocial(String nombre, Integer idObraSocial);
+    boolean existsByNombreAndObraSocial_IdObraSocial(String nombre, Long idObraSocial);
 }
 

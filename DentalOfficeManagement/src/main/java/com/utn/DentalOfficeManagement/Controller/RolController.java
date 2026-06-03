@@ -32,7 +32,7 @@ public class RolController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener rol por ID", description = "Obtiene un rol específico por su ID")
-    public ResponseEntity<RolResponseDTO> obtenerRolPorId(@PathVariable Integer id) {
+    public ResponseEntity<RolResponseDTO> obtenerRolPorId(@PathVariable Long id) {
         RolResponseDTO rol = rolService.obtenerRolPorId(id);
         return ResponseEntity.ok(rol);
     }
@@ -47,7 +47,7 @@ public class RolController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un rol", description = "Actualiza los datos de un rol existente")
     public ResponseEntity<RolResponseDTO> actualizarRol(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody RolRequestDTO dto) {
         RolResponseDTO rol = rolService.actualizarRol(id, dto);
         return ResponseEntity.ok(rol);
@@ -55,7 +55,7 @@ public class RolController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un rol", description = "Elimina un rol del sistema")
-    public ResponseEntity<Void> eliminarRol(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarRol(@PathVariable Long id) {
         rolService.eliminarRol(id);
         return ResponseEntity.noContent().build();
     }

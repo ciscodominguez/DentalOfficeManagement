@@ -32,7 +32,7 @@ public class NomencladorPracticaController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener nomenclador por ID", description = "Obtiene un nomenclador específico por su ID")
-    public ResponseEntity<NomencladorPracticaResponseDTO> obtenerNomencladorPorId(@PathVariable Integer id) {
+    public ResponseEntity<NomencladorPracticaResponseDTO> obtenerNomencladorPorId(@PathVariable Long id) {
         NomencladorPracticaResponseDTO nomenclador = nomencladorPracticaService.obtenerNomencladorPorId(id);
         return ResponseEntity.ok(nomenclador);
     }
@@ -46,7 +46,7 @@ public class NomencladorPracticaController {
 
     @GetMapping("/obra-social/{idObraSocial}")
     @Operation(summary = "Listar nomencladoras de una obra social", description = "Obtiene todos los nomencladoras de una obra social específica")
-    public ResponseEntity<List<NomencladorPracticaResponseDTO>> listarNomencladorDeObraSocial(@PathVariable Integer idObraSocial) {
+    public ResponseEntity<List<NomencladorPracticaResponseDTO>> listarNomencladorDeObraSocial(@PathVariable Long idObraSocial) {
         List<NomencladorPracticaResponseDTO> nomencladoras = nomencladorPracticaService.listarNomencladorDeObraSocial(idObraSocial);
         return ResponseEntity.ok(nomencladoras);
     }
@@ -54,7 +54,7 @@ public class NomencladorPracticaController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un nomenclador", description = "Actualiza los datos de un nomenclador existente")
     public ResponseEntity<NomencladorPracticaResponseDTO> actualizarNomenclador(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody NomencladorPracticaRequestDTO dto) {
         NomencladorPracticaResponseDTO nomenclador = nomencladorPracticaService.actualizarNomenclador(id, dto);
         return ResponseEntity.ok(nomenclador);
@@ -62,7 +62,7 @@ public class NomencladorPracticaController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un nomenclador", description = "Elimina un nomenclador del sistema")
-    public ResponseEntity<Void> eliminarNomenclador(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarNomenclador(@PathVariable Long id) {
         nomencladorPracticaService.eliminarNomenclador(id);
         return ResponseEntity.noContent().build();
     }

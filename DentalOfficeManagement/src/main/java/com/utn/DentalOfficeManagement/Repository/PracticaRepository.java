@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PracticaRepository extends JpaRepository<Practica, Integer> {
+public interface PracticaRepository extends JpaRepository<Practica, Long> {
     
     List<Practica> findByCodigoInterno(String codigoInterno);
 
@@ -18,6 +18,6 @@ public interface PracticaRepository extends JpaRepository<Practica, Integer> {
 
     List<Practica> findByNombreContainingIgnoreCase(String nombre);
 
-    boolean existsByCodigoInternoAndIdPracticaNot(@NotBlank(message = "El código interno no puede estar vacío") String codigoInterno, Integer id);
+    boolean existsByCodigoInternoAndIdPracticaNot(@NotBlank(message = "El código interno no puede estar vacío") String codigoInterno, Long id);
 }
 

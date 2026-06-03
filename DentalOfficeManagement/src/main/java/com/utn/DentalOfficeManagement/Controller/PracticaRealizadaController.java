@@ -46,14 +46,14 @@ public class PracticaRealizadaController {
 
     @GetMapping("/turno/{idTurno}")
     @Operation(summary = "Listar prácticas realizadas por turno", description = "Obtiene todas las prácticas realizadas en un turno específico")
-    public ResponseEntity<List<PracticaRealizadaResponseDTO>> listarPracticasRealizadasPorTurno(@PathVariable Integer idTurno) {
+    public ResponseEntity<List<PracticaRealizadaResponseDTO>> listarPracticasRealizadasPorTurno(@PathVariable Long idTurno) {
         List<PracticaRealizadaResponseDTO> practicasRealizadas = practicaRealizadaService.listarPracticasRealizadasPorTurno(idTurno);
         return ResponseEntity.ok(practicasRealizadas);
     }
 
     @GetMapping("/paciente/{idPaciente}")
     @Operation(summary = "Listar prácticas realizadas por paciente", description = "Obtiene todas las prácticas realizadas a un paciente específico")
-    public ResponseEntity<List<PracticaRealizadaResponseDTO>> listarPracticasRealizadasPorPaciente(@PathVariable Integer idPaciente) {
+    public ResponseEntity<List<PracticaRealizadaResponseDTO>> listarPracticasRealizadasPorPaciente(@PathVariable Long idPaciente) {
         List<PracticaRealizadaResponseDTO> practicasRealizadas = practicaRealizadaService.listarPracticasRealizadasPorPaciente(idPaciente);
         return ResponseEntity.ok(practicasRealizadas);
     }
@@ -78,7 +78,7 @@ public class PracticaRealizadaController {
     @Operation(summary = "Asignar pago a práctica realizada", description = "Asigna un pago a una práctica realizada sin pago")
     public ResponseEntity<PracticaRealizadaResponseDTO> asignarPago(
             @PathVariable Long id,
-            @PathVariable Integer idPago) {
+            @PathVariable Long idPago) {
         PracticaRealizadaResponseDTO practicaRealizada = practicaRealizadaService.asignarPago(id, idPago);
         return ResponseEntity.ok(practicaRealizada);
     }

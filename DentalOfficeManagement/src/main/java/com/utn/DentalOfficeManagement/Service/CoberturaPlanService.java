@@ -34,10 +34,10 @@ public class CoberturaPlanService {
     }
 
     public CoberturaPlanResponseDTO crearCobertura(CoberturaPlanRequestDTO dto) {
-        Plan plan = planRepository.findById(dto.getPlanId().intValue())
+        Plan plan = planRepository.findById(dto.getPlanId())
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", dto.getPlanId()));
 
-        Practica practica = practicaRepository.findById(dto.getPracticaId().intValue())
+        Practica practica = practicaRepository.findById(dto.getPracticaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", dto.getPracticaId()));
 
         if (coberturaPlanRepository.existsByPlan_IdPlanAndPractica_IdPractica(plan.getIdPlan(), practica.getIdPractica())) {
@@ -52,7 +52,7 @@ public class CoberturaPlanService {
     }
 
     @Transactional(readOnly = true)
-    public CoberturaPlanResponseDTO obtenerCoberturaPorId(Integer id) {
+    public CoberturaPlanResponseDTO obtenerCoberturaPorId(Long id) {
         CoberturaPlan cobertura = coberturaPlanRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cobertura", "id", id));
         return coberturaPlanMapper.entityToResponseDto(cobertura);
@@ -66,20 +66,20 @@ public class CoberturaPlanService {
     }
 
     @Transactional(readOnly = true)
-    public List<CoberturaPlanResponseDTO> listarCoberturasDeUnPlan(Integer idPlan) {
+    public List<CoberturaPlanResponseDTO> listarCoberturasDeUnPlan(Long idPlan) {
         return coberturaPlanRepository.findByPlan_IdPlan(idPlan).stream()
                 .map(coberturaPlanMapper::entityToResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public CoberturaPlanResponseDTO actualizarCobertura(Integer id, CoberturaPlanRequestDTO dto) {
+    public CoberturaPlanResponseDTO actualizarCobertura(Long id, CoberturaPlanRequestDTO dto) {
         CoberturaPlan cobertura = coberturaPlanRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cobertura", "id", id));
 
-        Plan plan = planRepository.findById(dto.getPlanId().intValue())
+        Plan plan = planRepository.findById(dto.getPlanId())
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", dto.getPlanId()));
 
-        Practica practica = practicaRepository.findById(dto.getPracticaId().intValue())
+        Practica practica = practicaRepository.findById(dto.getPracticaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", dto.getPracticaId()));
 
         if (coberturaPlanRepository.existsByPlan_IdPlanAndPractica_IdPracticaAndIdCoberturaPlanNot(plan.getIdPlan(), practica.getIdPractica(), id)) {
@@ -94,7 +94,7 @@ public class CoberturaPlanService {
         return coberturaPlanMapper.entityToResponseDto(coberturaActualizada);
     }
 
-    public void eliminarCobertura(Integer id) {
+    public void eliminarCobertura(Long id) {
         if (!coberturaPlanRepository.existsById(id)) {
             throw new ResourceNotFoundException("Cobertura", "id", id);
         }

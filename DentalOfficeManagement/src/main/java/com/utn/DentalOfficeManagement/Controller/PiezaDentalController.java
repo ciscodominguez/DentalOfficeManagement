@@ -32,7 +32,7 @@ public class PiezaDentalController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener pieza dental por ID", description = "Obtiene una pieza dental específica por su ID")
-    public ResponseEntity<PiezaDentalResponseDTO> obtenerPiezaDentalPorId(@PathVariable Integer id) {
+    public ResponseEntity<PiezaDentalResponseDTO> obtenerPiezaDentalPorId(@PathVariable Long id) {
         PiezaDentalResponseDTO piezaDental = piezaDentalService.obtenerPiezaDentalPorId(id);
         return ResponseEntity.ok(piezaDental);
     }
@@ -46,7 +46,7 @@ public class PiezaDentalController {
 
     @GetMapping("/paciente/{idPaciente}")
     @Operation(summary = "Listar piezas dentales por paciente", description = "Obtiene todas las piezas dentales de un paciente específico")
-    public ResponseEntity<List<PiezaDentalResponseDTO>> listarPiezasDentalesdePaciente(@PathVariable Integer idPaciente) {
+    public ResponseEntity<List<PiezaDentalResponseDTO>> listarPiezasDentalesdePaciente(@PathVariable Long idPaciente) {
         List<PiezaDentalResponseDTO> piezasDentales = piezaDentalService.listarPiezasDentalesdePaciente(idPaciente);
         return ResponseEntity.ok(piezasDentales);
     }
@@ -54,7 +54,7 @@ public class PiezaDentalController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar una pieza dental", description = "Actualiza los datos de una pieza dental existente")
     public ResponseEntity<PiezaDentalResponseDTO> actualizarPiezaDental(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody PiezaDentalRequestDTO dto) {
         PiezaDentalResponseDTO piezaDental = piezaDentalService.actualizarPiezaDental(id, dto);
         return ResponseEntity.ok(piezaDental);
@@ -62,7 +62,7 @@ public class PiezaDentalController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar una pieza dental", description = "Elimina una pieza dental del sistema")
-    public ResponseEntity<Void> eliminarPiezaDental(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarPiezaDental(@PathVariable Long id) {
         piezaDentalService.eliminarPiezaDental(id);
         return ResponseEntity.noContent().build();
     }

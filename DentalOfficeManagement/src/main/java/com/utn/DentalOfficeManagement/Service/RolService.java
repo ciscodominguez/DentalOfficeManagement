@@ -35,7 +35,7 @@ public class RolService {
     }
 
     @Transactional(readOnly = true)
-    public RolResponseDTO obtenerRolPorId(Integer id) {
+    public RolResponseDTO obtenerRolPorId(Long id) {
         Rol rol = rolRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rol", "id", id));
         return rolMapper.toResponse(rol);
@@ -48,8 +48,7 @@ public class RolService {
                 .collect(Collectors.toList());
     }
 
-    public RolResponseDTO actualizarRol(Integer id, RolRequestDTO dto) {
-        Rol rol = rolRepository.findById(id)
+    public RolResponseDTO actualizarRol(Long id, RolRequestDTO dto) {       Rol rol = rolRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rol", "id", id));
 
         if (rolRepository.existsByNombreAndIdRolNot(dto.getNombre(), id)) {
@@ -61,7 +60,7 @@ public class RolService {
         return rolMapper.toResponse(rolActualizado);
     }
 
-    public void eliminarRol(Integer id) {
+    public void eliminarRol(Long id) {
         if (!rolRepository.existsById(id)) {
             throw new ResourceNotFoundException("Rol", "id", id);
         }

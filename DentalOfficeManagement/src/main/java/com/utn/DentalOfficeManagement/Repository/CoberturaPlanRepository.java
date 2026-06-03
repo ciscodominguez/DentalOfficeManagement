@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CoberturaPlanRepository extends JpaRepository<CoberturaPlan, Integer> {
-    List<CoberturaPlan> findByPlan_IdPlan(Integer idPlan);
-    List<CoberturaPlan> findByPractica_IdPractica(Integer idPractica);
+public interface CoberturaPlanRepository extends JpaRepository<CoberturaPlan, Long> {
+    List<CoberturaPlan> findByPlan_IdPlan(Long idPlan);
+    List<CoberturaPlan> findByPractica_IdPractica(Long idPractica);
     Optional<CoberturaPlan> findByPlan_IdPlanAndPractica_IdPractica(
-            Integer idPlan, Integer idPractica
+            Long idPlan, Long idPractica
     );
     boolean existsByPlan_IdPlanAndPractica_IdPractica(
-            Integer idPlan, Integer idPractica
+            Long idPlan, Long idPractica
     );
 
-    boolean existsByPlan_IdPlanAndPractica_IdPracticaAndIdCoberturaPlanNot(Integer idPlan, Integer idPractica, Integer id);
+    boolean existsByPlan_IdPlanAndPractica_IdPracticaAndIdCoberturaPlanNot(Long idPlan, Long idPractica, Long id);
 }

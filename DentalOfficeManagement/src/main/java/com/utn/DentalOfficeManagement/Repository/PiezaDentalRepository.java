@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface PiezaDentalRepository extends JpaRepository<PiezaDental, Integer> {
+public interface PiezaDentalRepository extends JpaRepository<PiezaDental, Long> {
     List<PiezaDental> findByEstado(String estado);
 
     @Query("""
@@ -19,7 +19,7 @@ public interface PiezaDentalRepository extends JpaRepository<PiezaDental, Intege
         JOIN Turno t ON pr.turno.idTurno = t.idTurno
         WHERE t.paciente.idPaciente = :idPaciente
     """)
-    List<PiezaDental> findByPacienteId(@Param("idPaciente") Integer idPaciente);
+    List<PiezaDental> findByPacienteId(@Param("idPaciente") Long idPaciente);
 
-    List<PiezaDental> findByFichaMedica_Paciente_IdPaciente(Integer idPaciente);
+    List<PiezaDental> findByFichaMedica_Paciente_IdPaciente(Long idPaciente);
 }

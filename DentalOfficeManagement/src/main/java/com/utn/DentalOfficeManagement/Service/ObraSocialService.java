@@ -35,7 +35,7 @@ public class ObraSocialService {
     }
 
     @Transactional(readOnly = true)
-    public ObraSocialResponseDTO obtenerObraSocialPorId(Integer id) {
+    public ObraSocialResponseDTO obtenerObraSocialPorId(Long id) {
         ObraSocial obraSocial = obraSocialRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Obra Social", "id", id));
         return obraSocialMapper.entityToResponseDto(obraSocial);
@@ -55,7 +55,7 @@ public class ObraSocialService {
                 .collect(Collectors.toList());
     }
 
-    public ObraSocialResponseDTO actualizarObraSocial(Integer id, ObraSocialRequestDTO dto) {
+    public ObraSocialResponseDTO actualizarObraSocial(Long id, ObraSocialRequestDTO dto) {
         ObraSocial obraSocial = obraSocialRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Obra Social", "id", id));
 
@@ -70,7 +70,7 @@ public class ObraSocialService {
         return obraSocialMapper.entityToResponseDto(obraSocialActualizada);
     }
 
-    public void eliminarObraSocial(Integer id) {
+    public void eliminarObraSocial(Long id) {
         if (!obraSocialRepository.existsById(id)) {
             throw new ResourceNotFoundException("Obra Social", "id", id);
         }

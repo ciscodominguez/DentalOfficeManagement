@@ -38,24 +38,24 @@ public class PracticaRealizadaService {
     }
 
     public PracticaRealizadaResponseDTO crearPracticaRealizada(PracticaRealizadaRequestDTO dto) {
-        Practica practica = practicaRepository.findById(dto.getPracticaId().intValue())
+        Practica practica = practicaRepository.findById(dto.getPracticaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", dto.getPracticaId()));
 
-        PiezaDental piezaDental = piezaDentalRepository.findById(dto.getPiezaDentalId().intValue())
+        PiezaDental piezaDental = piezaDentalRepository.findById(dto.getPiezaDentalId())
                 .orElseThrow(() -> new ResourceNotFoundException("Pieza Dental", "id", dto.getPiezaDentalId()));
 
-        NomencladorPractica nomenclador = nomencladorPracticaRepository.findById(dto.getIdNomencladorPractica().intValue())
+        NomencladorPractica nomenclador = nomencladorPracticaRepository.findById(dto.getIdNomencladorPractica())
                 .orElseThrow(() -> new ResourceNotFoundException("Nomenclador", "id", dto.getIdNomencladorPractica()));
 
-        CoberturaPlan cobertura = coberturaPlanRepository.findById(dto.getIdCoberturaPlan().intValue())
+        CoberturaPlan cobertura = coberturaPlanRepository.findById(dto.getIdCoberturaPlan())
                 .orElseThrow(() -> new ResourceNotFoundException("Cobertura", "id", dto.getIdCoberturaPlan()));
 
-        Turno turno = turnoRepository.findById(dto.getIdTurno().intValue())
+        Turno turno = turnoRepository.findById(dto.getIdTurno())
                 .orElseThrow(() -> new ResourceNotFoundException("Turno", "id", dto.getIdTurno()));
 
         Pago pago = null;
         if (dto.getIdPago() != null) {
-            pago = pagoRepository.findById(dto.getIdPago().intValue())
+            pago = pagoRepository.findById(dto.getIdPago())
                     .orElseThrow(() -> new ResourceNotFoundException("Pago", "id", dto.getIdPago()));
         }
 
@@ -87,14 +87,14 @@ public class PracticaRealizadaService {
     }
 
     @Transactional(readOnly = true)
-    public List<PracticaRealizadaResponseDTO> listarPracticasRealizadasPorTurno(Integer idTurno) {
+    public List<PracticaRealizadaResponseDTO> listarPracticasRealizadasPorTurno(Long idTurno) {
         return practicaRealizadaRepository.findByTurno_IdTurno(idTurno).stream()
                 .map(practicaRealizadaMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<PracticaRealizadaResponseDTO> listarPracticasRealizadasPorPaciente(Integer idPaciente) {
+    public List<PracticaRealizadaResponseDTO> listarPracticasRealizadasPorPaciente(Long idPaciente) {
         return practicaRealizadaRepository.findByTurno_Paciente_IdPaciente(idPaciente).stream()
                 .map(practicaRealizadaMapper::toResponse)
                 .collect(Collectors.toList());
@@ -111,24 +111,24 @@ public class PracticaRealizadaService {
         PracticaRealizada practicaRealizada = practicaRealizadaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica Realizada", "id", id));
 
-        Practica practica = practicaRepository.findById(dto.getPracticaId().intValue())
+        Practica practica = practicaRepository.findById(dto.getPracticaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", dto.getPracticaId()));
 
-        PiezaDental piezaDental = piezaDentalRepository.findById(dto.getPiezaDentalId().intValue())
+        PiezaDental piezaDental = piezaDentalRepository.findById(dto.getPiezaDentalId())
                 .orElseThrow(() -> new ResourceNotFoundException("Pieza Dental", "id", dto.getPiezaDentalId()));
 
-        NomencladorPractica nomenclador = nomencladorPracticaRepository.findById(dto.getIdNomencladorPractica().intValue())
+        NomencladorPractica nomenclador = nomencladorPracticaRepository.findById(dto.getIdNomencladorPractica())
                 .orElseThrow(() -> new ResourceNotFoundException("Nomenclador", "id", dto.getIdNomencladorPractica()));
 
-        CoberturaPlan cobertura = coberturaPlanRepository.findById(dto.getIdCoberturaPlan().intValue())
+        CoberturaPlan cobertura = coberturaPlanRepository.findById(dto.getIdCoberturaPlan())
                 .orElseThrow(() -> new ResourceNotFoundException("Cobertura", "id", dto.getIdCoberturaPlan()));
 
-        Turno turno = turnoRepository.findById(dto.getIdTurno().intValue())
+        Turno turno = turnoRepository.findById(dto.getIdTurno())
                 .orElseThrow(() -> new ResourceNotFoundException("Turno", "id", dto.getIdTurno()));
 
         Pago pago = null;
         if (dto.getIdPago() != null) {
-            pago = pagoRepository.findById(dto.getIdPago().intValue())
+            pago = pagoRepository.findById(dto.getIdPago())
                     .orElseThrow(() -> new ResourceNotFoundException("Pago", "id", dto.getIdPago()));
         }
 
@@ -145,7 +145,7 @@ public class PracticaRealizadaService {
         return practicaRealizadaMapper.toResponse(practicaRealizadaActualizada);
     }
 
-    public PracticaRealizadaResponseDTO asignarPago(Long id, Integer idPago) {
+    public PracticaRealizadaResponseDTO asignarPago(Long id, Long idPago) {
         PracticaRealizada practicaRealizada = practicaRealizadaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica Realizada", "id", id));
 

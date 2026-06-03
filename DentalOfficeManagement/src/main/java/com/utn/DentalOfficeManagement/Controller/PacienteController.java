@@ -32,7 +32,7 @@ public class PacienteController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener paciente por ID", description = "Obtiene un paciente específico por su ID")
-    public ResponseEntity<PacienteResponseDTO> obtenerPacientePorId(@PathVariable Integer id) {
+    public ResponseEntity<PacienteResponseDTO> obtenerPacientePorId(@PathVariable Long id) {
         PacienteResponseDTO paciente = pacienteService.obtenerPacientePorId(id);
         return ResponseEntity.ok(paciente);
     }
@@ -60,7 +60,7 @@ public class PacienteController {
 
     @GetMapping("/plan/{idPlan}")
     @Operation(summary = "Listar pacientes por plan", description = "Obtiene todos los pacientes asociados a un plan específico")
-    public ResponseEntity<List<PacienteResponseDTO>> listarPacientesPorPlan(@PathVariable Integer idPlan) {
+    public ResponseEntity<List<PacienteResponseDTO>> listarPacientesPorPlan(@PathVariable Long idPlan) {
         List<PacienteResponseDTO> pacientes = pacienteService.listarPacientesPorPlan(idPlan);
         return ResponseEntity.ok(pacientes);
     }
@@ -68,7 +68,7 @@ public class PacienteController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un paciente", description = "Actualiza los datos de un paciente existente")
     public ResponseEntity<PacienteResponseDTO> actualizarPaciente(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody PacienteRequestDTO dto) {
         PacienteResponseDTO paciente = pacienteService.actualizarPaciente(id, dto);
         return ResponseEntity.ok(paciente);
@@ -76,7 +76,7 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un paciente", description = "Elimina un paciente del sistema")
-    public ResponseEntity<Void> eliminarPaciente(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarPaciente(@PathVariable Long id) {
         pacienteService.eliminarPaciente(id);
         return ResponseEntity.noContent().build();
     }

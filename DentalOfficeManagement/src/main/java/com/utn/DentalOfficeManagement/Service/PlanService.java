@@ -30,7 +30,7 @@ public class PlanService {
     }
 
     public PlanResponseDTO crearPlan(PlanRequestDTO dto) {
-        ObraSocial obraSocial = obraSocialRepository.findById(dto.getObraSocialId().intValue())
+        ObraSocial obraSocial = obraSocialRepository.findById(dto.getObraSocialId())
                 .orElseThrow(() -> new ResourceNotFoundException("Obra Social", "id", dto.getObraSocialId()));
 
         if (planRepository.existsByNombreAndObraSocial_IdObraSocial(dto.getNombre(), obraSocial.getIdObraSocial())) {
@@ -44,7 +44,7 @@ public class PlanService {
     }
 
     @Transactional(readOnly = true)
-    public PlanResponseDTO obtenerPlanPorId(Integer id) {
+    public PlanResponseDTO obtenerPlanPorId(Long id) {
         Plan plan = planRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
         return planMapper.entityToResponseDto(plan);
@@ -58,17 +58,17 @@ public class PlanService {
     }
 
     @Transactional(readOnly = true)
-    public List<PlanResponseDTO> listarPlanesDeObraSocial(Integer idObraSocial) {
+    public List<PlanResponseDTO> listarPlanesDeObraSocial(Long idObraSocial) {
         return planRepository.findByObraSocial_IdObraSocial(idObraSocial).stream()
                 .map(planMapper::entityToResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public PlanResponseDTO actualizarPlan(Integer id, PlanRequestDTO dto) {
+    public PlanResponseDTO actualizarPlan(Long id, PlanRequestDTO dto) {
         Plan plan = planRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
 
-        ObraSocial obraSocial = obraSocialRepository.findById(dto.getObraSocialId().intValue())
+        ObraSocial obraSocial = obraSocialRepository.findById(dto.getObraSocialId())
                 .orElseThrow(() -> new ResourceNotFoundException("Obra Social", "id", dto.getObraSocialId()));
 
         if (planRepository.existsByNombreAndObraSocial_IdObraSocial(dto.getNombre(), obraSocial.getIdObraSocial()) 
@@ -83,7 +83,7 @@ public class PlanService {
         return planMapper.entityToResponseDto(planActualizado);
     }
 
-    public void eliminarPlan(Integer id) {
+    public void eliminarPlan(Long id) {
         if (!planRepository.existsById(id)) {
             throw new ResourceNotFoundException("Plan", "id", id);
         }

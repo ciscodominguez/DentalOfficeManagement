@@ -32,7 +32,7 @@ public class CoberturaPlanController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener cobertura por ID", description = "Obtiene una cobertura específica por su ID")
-    public ResponseEntity<CoberturaPlanResponseDTO> obtenerCoberturaPorId(@PathVariable Integer id) {
+    public ResponseEntity<CoberturaPlanResponseDTO> obtenerCoberturaPorId(@PathVariable Long id) {
         CoberturaPlanResponseDTO cobertura = coberturaPlanService.obtenerCoberturaPorId(id);
         return ResponseEntity.ok(cobertura);
     }
@@ -46,7 +46,7 @@ public class CoberturaPlanController {
 
     @GetMapping("/plan/{idPlan}")
     @Operation(summary = "Listar coberturas de un plan", description = "Obtiene todas las coberturas de un plan específico")
-    public ResponseEntity<List<CoberturaPlanResponseDTO>> listarCoberturasDeUnPlan(@PathVariable Integer idPlan) {
+    public ResponseEntity<List<CoberturaPlanResponseDTO>> listarCoberturasDeUnPlan(@PathVariable Long idPlan) {
         List<CoberturaPlanResponseDTO> coberturas = coberturaPlanService.listarCoberturasDeUnPlan(idPlan);
         return ResponseEntity.ok(coberturas);
     }
@@ -54,7 +54,7 @@ public class CoberturaPlanController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar una cobertura", description = "Actualiza los datos de una cobertura existente")
     public ResponseEntity<CoberturaPlanResponseDTO> actualizarCobertura(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody CoberturaPlanRequestDTO dto) {
         CoberturaPlanResponseDTO cobertura = coberturaPlanService.actualizarCobertura(id, dto);
         return ResponseEntity.ok(cobertura);
@@ -62,7 +62,7 @@ public class CoberturaPlanController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar una cobertura", description = "Elimina una cobertura del sistema")
-    public ResponseEntity<Void> eliminarCobertura(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarCobertura(@PathVariable Long id) {
         coberturaPlanService.eliminarCobertura(id);
         return ResponseEntity.noContent().build();
     }

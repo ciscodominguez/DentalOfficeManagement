@@ -32,7 +32,7 @@ public class PracticaController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener práctica por ID", description = "Obtiene una práctica específica por su ID")
-    public ResponseEntity<PracticaResponseDTO> obtenerPracticaPorId(@PathVariable Integer id) {
+    public ResponseEntity<PracticaResponseDTO> obtenerPracticaPorId(@PathVariable Long id) {
         PracticaResponseDTO practica = practicaService.obtenerPracticaPorId(id);
         return ResponseEntity.ok(practica);
     }
@@ -54,7 +54,7 @@ public class PracticaController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar una práctica", description = "Actualiza los datos de una práctica existente")
     public ResponseEntity<PracticaResponseDTO> actualizarPractica(
-            @PathVariable Integer id,
+            @PathVariable Long id,
             @Valid @RequestBody PracticaRequestDTO dto) {
         PracticaResponseDTO practica = practicaService.actualizarPractica(id, dto);
         return ResponseEntity.ok(practica);
@@ -62,7 +62,7 @@ public class PracticaController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar una práctica", description = "Elimina una práctica del sistema")
-    public ResponseEntity<Void> eliminarPractica(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarPractica(@PathVariable Long id) {
         practicaService.eliminarPractica(id);
         return ResponseEntity.noContent().build();
     }
