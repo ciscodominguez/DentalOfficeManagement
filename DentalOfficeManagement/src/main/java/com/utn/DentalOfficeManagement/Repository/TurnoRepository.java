@@ -37,10 +37,10 @@ public interface TurnoRepository extends JpaRepository<Turno, Long> {
             @Param("hora") LocalTime hora
     );
 
-    boolean existsByOdontologo_IdOdontologoAndFechaAndHora(Long idOdontologo, @NotNull(message = "La fecha es obligatoria") @FutureOrPresent(message = "La fecha no puede ser en el pasado") LocalDate fecha, @NotNull(message = "La hora es obligatoria") LocalTime hora);
+    boolean existsByOdontologo_IdOdontologoAndFechaAndHora(Long idOdontologo, @NotNull(message = "La fecha es obligatoria")  LocalDate fecha, @NotNull(message = "La hora es obligatoria") LocalTime hora);
 
     List<Turno> findByFecha(LocalDate fecha);
 
-    boolean existsByOdontologo_IdOdontologoAndFechaAndHoraAndIdTurnoNot(Long idOdontologo, @NotNull(message = "La fecha es obligatoria") @FutureOrPresent(message = "La fecha no puede ser en el pasado") LocalDate fecha, @NotNull(message = "La hora es obligatoria") LocalTime hora, Long id);
+    boolean existsByOdontologo_IdOdontologoAndFechaAndHoraAndIdTurnoNot(Long idOdontologo, @NotNull(message = "La fecha es obligatoria")  LocalDate fecha, @NotNull(message = "La hora es obligatoria") LocalTime hora, Long id);
 }
 

@@ -103,15 +103,15 @@ public class UsuarioService {
         return usuarioMapper.toResponse(usuarioActualizado);
     }
 
-    @Transactional(readOnly = true)
-    public void autenticar(String username, String contrasenia) {
-        Usuario usuario = usuarioRepository.findByUsername(username)
-                .orElseThrow(() -> new InvalidCredentialsException("Credenciales inválidas"));
-
-        if (!passwordEncoder.matches(contrasenia, usuario.getContrasenia())) {
-            throw new InvalidCredentialsException("Credenciales inválidas");
-        }
-    }
+//    @Transactional(readOnly = true)
+//    public void autenticar(String username, String contrasenia) {
+//        Usuario usuario = usuarioRepository.findByUsername(username)
+//                .orElseThrow(() -> new InvalidCredentialsException("Credenciales inválidas"));
+//
+//        if (!passwordEncoder.matches(contrasenia, usuario.getContrasenia())) {
+//            throw new InvalidCredentialsException("Credenciales inválidas");
+//        }
+//    }<
 
     public void eliminarUsuario(Long id) {
         if (!usuarioRepository.existsById(id)) {
