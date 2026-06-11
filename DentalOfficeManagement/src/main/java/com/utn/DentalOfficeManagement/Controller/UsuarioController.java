@@ -1,5 +1,6 @@
 package com.utn.DentalOfficeManagement.Controller;
 
+import com.utn.DentalOfficeManagement.DTO.Request.CambiarContraseniaRequestDTO;
 import com.utn.DentalOfficeManagement.DTO.Request.UsuarioRequestDTO;
 import com.utn.DentalOfficeManagement.DTO.Response.UsuarioResponseDTO;
 import com.utn.DentalOfficeManagement.Service.UsuarioService;
@@ -64,8 +65,8 @@ public class UsuarioController {
     @Operation(summary = "Cambiar contraseña de usuario", description = "Cambia la contraseña de un usuario específico")
     public ResponseEntity<UsuarioResponseDTO> cambiarContrasenia(
             @PathVariable Long id,
-            @RequestParam String nuevaContrasenia) {
-        UsuarioResponseDTO usuario = usuarioService.cambiarContrasenia(id, nuevaContrasenia);
+            @Valid @RequestBody CambiarContraseniaRequestDTO dto) {
+        UsuarioResponseDTO usuario = usuarioService.cambiarContrasenia(id, dto.getNuevaContrasenia());
         return ResponseEntity.ok(usuario);
     }
 
