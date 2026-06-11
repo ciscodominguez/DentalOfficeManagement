@@ -20,7 +20,7 @@ public class PiezaDental {
     private Long idPiezaDental; // No auto-generado: número de pieza es fijo (1-32)
 
     @Column(name = "numero_pieza", nullable = false, precision = 5, scale = 2)
-    private BigDecimal numeroPieza;
+    private Integer numeroPieza;
 
     @Column(name = "estado", length = 50)
     private String estado;
