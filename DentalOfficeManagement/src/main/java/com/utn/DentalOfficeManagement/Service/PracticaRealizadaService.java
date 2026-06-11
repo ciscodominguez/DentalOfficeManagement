@@ -152,6 +152,9 @@ public class PracticaRealizadaService {
         Pago pago = pagoRepository.findById(idPago)
                 .orElseThrow(() -> new ResourceNotFoundException("Pago", "id", idPago));
 
+        if (practicaRealizada.getPago() != null) {
+            throw new InvalidOperationException("La práctica realizada ya tiene un pago asignado");
+        }
         practicaRealizada.setPago(pago);
         PracticaRealizada practicaRealizadaActualizada = practicaRealizadaRepository.save(practicaRealizada);
         return practicaRealizadaMapper.toResponse(practicaRealizadaActualizada);
