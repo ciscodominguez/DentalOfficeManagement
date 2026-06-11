@@ -43,7 +43,7 @@ public class TurnoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Odontólogo", "id", dto.getOdontologoId()));
 
         // Validar que no exista otro turno para el mismo odontólogo a la misma fecha y hora
-        if (turnoRepository.existsByOdontologo_IdOdontologoAndFechaAndHora(odontologo.getIdOdontologo(), dto.getFecha(), dto.getHora())) {
+        if (turnoRepository.existsTurnoSolapado(odontologo.getIdOdontologo(), dto.getFecha(), dto.getHora())) {
             throw new InvalidOperationException("Ya existe un turno registrado para este odontólogo en la fecha y hora especificada");
         }
 
