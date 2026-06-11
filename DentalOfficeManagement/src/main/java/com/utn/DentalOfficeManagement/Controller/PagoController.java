@@ -4,6 +4,8 @@ import com.utn.DentalOfficeManagement.DTO.Request.PagoRequestDTO;
 import com.utn.DentalOfficeManagement.DTO.Response.PagoResponseDTO;
 import com.utn.DentalOfficeManagement.Service.PagoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,10 @@ public class PagoController {
 
     @PostMapping
     @Operation(summary = "Crear un nuevo pago", description = "Crea un nuevo pago en el sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Pago creado con éxito"),
+            @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos (Error de validación)")
+    })
     public ResponseEntity<PagoResponseDTO> crearPago(@Valid @RequestBody PagoRequestDTO dto) {
         PagoResponseDTO pago = pagoService.crearPago(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(pago);
@@ -33,6 +39,10 @@ public class PagoController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener pago por ID", description = "Obtiene un pago específico por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pago encontrado"),
+            @ApiResponse(responseCode = "404", description = "Pago no encontrado con el ID provisto")
+    })
     public ResponseEntity<PagoResponseDTO> obtenerPagoPorId(@PathVariable Long id) {
         PagoResponseDTO pago = pagoService.obtenerPagoPorId(id);
         return ResponseEntity.ok(pago);
@@ -40,6 +50,9 @@ public class PagoController {
 
     @GetMapping
     @Operation(summary = "Listar todos los pagos", description = "Obtiene la lista de todos los pagos registrados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pagos obtenida con éxito")
+    })
     public ResponseEntity<List<PagoResponseDTO>> listarTodos() {
         List<PagoResponseDTO> pagos = pagoService.listarTodos();
         return ResponseEntity.ok(pagos);
@@ -47,6 +60,9 @@ public class PagoController {
 
     @GetMapping("/paciente/{idPaciente}")
     @Operation(summary = "Listar pagos por paciente", description = "Obtiene todos los pagos de un paciente específico")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pagos obtenida con éxito")
+    })
     public ResponseEntity<List<PagoResponseDTO>> listarPagosPorPaciente(@PathVariable Long idPaciente) {
         List<PagoResponseDTO> pagos = pagoService.listarPagosPorPaciente(idPaciente);
         return ResponseEntity.ok(pagos);
@@ -54,6 +70,9 @@ public class PagoController {
 
     @GetMapping("/filtrar")
     @Operation(summary = "Filtrar pagos por rango de fecha", description = "Obtiene pagos dentro de un rango de fechas especificado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pagos obtenida con éxito")
+    })
     public ResponseEntity<List<PagoResponseDTO>> listarPagosPorRangoFecha(
             @RequestParam LocalDate fechaInicio,
             @RequestParam LocalDate fechaFin) {
@@ -63,6 +82,10 @@ public class PagoController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un pago", description = "Actualiza los datos de un pago existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pago actualizado con éxito"),
+            @ApiResponse(responseCode = "404", description = "Pago no encontrado con el ID provisto")
+    })
     public ResponseEntity<PagoResponseDTO> actualizarPago(
             @PathVariable Long id,
             @Valid @RequestBody PagoRequestDTO dto) {
@@ -72,6 +95,10 @@ public class PagoController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un pago", description = "Elimina un pago del sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pago eliminado con éxito"),
+            @ApiResponse(responseCode = "404", description = "Pago no encontrado con el ID provisto")
+    })
     public ResponseEntity<Void> eliminarPago(@PathVariable Long id) {
         pagoService.eliminarPago(id);
         return ResponseEntity.noContent().build();

@@ -4,6 +4,8 @@ import com.utn.DentalOfficeManagement.DTO.Request.NomencladorPracticaRequestDTO;
 import com.utn.DentalOfficeManagement.DTO.Response.NomencladorPracticaResponseDTO;
 import com.utn.DentalOfficeManagement.Service.NomencladorPracticaService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,11 @@ public class NomencladorPracticaController {
 
     @PostMapping
     @Operation(summary = "Crear un nuevo nomenclador", description = "Crea una nueva asociación de práctica con código externo en una obra social")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Nomenclador creado con éxito"),
+            @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos (Error de validación)"),
+            @ApiResponse(responseCode = "409", description = "Conflict: El nomenclador para esta práctica y obra social ya existe")
+    })
     public ResponseEntity<NomencladorPracticaResponseDTO> crearNomenclador(@Valid @RequestBody NomencladorPracticaRequestDTO dto) {
         NomencladorPracticaResponseDTO nomenclador = nomencladorPracticaService.crearNomenclador(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(nomenclador);
@@ -32,6 +39,10 @@ public class NomencladorPracticaController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener nomenclador por ID", description = "Obtiene un nomenclador específico por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Nomenclador encontrado"),
+            @ApiResponse(responseCode = "404", description = "Nomenclador no encontrado con el ID provisto")
+    })
     public ResponseEntity<NomencladorPracticaResponseDTO> obtenerNomencladorPorId(@PathVariable Long id) {
         NomencladorPracticaResponseDTO nomenclador = nomencladorPracticaService.obtenerNomencladorPorId(id);
         return ResponseEntity.ok(nomenclador);
@@ -39,6 +50,9 @@ public class NomencladorPracticaController {
 
     @GetMapping
     @Operation(summary = "Listar todos los nomencladoras", description = "Obtiene la lista de todos los nomencladoras registrados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de nomencladoras obtenida con éxito")
+    })
     public ResponseEntity<List<NomencladorPracticaResponseDTO>> listarTodos() {
         List<NomencladorPracticaResponseDTO> nomencladoras = nomencladorPracticaService.listarTodos();
         return ResponseEntity.ok(nomencladoras);
@@ -46,6 +60,10 @@ public class NomencladorPracticaController {
 
     @GetMapping("/obra-social/{idObraSocial}")
     @Operation(summary = "Listar nomencladoras de una obra social", description = "Obtiene todos los nomencladoras de una obra social específica")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de nomencladoras obtenida con éxito"),
+            @ApiResponse(responseCode = "404", description = "Obra social no encontrada")
+    })
     public ResponseEntity<List<NomencladorPracticaResponseDTO>> listarNomencladorDeObraSocial(@PathVariable Long idObraSocial) {
         List<NomencladorPracticaResponseDTO> nomencladoras = nomencladorPracticaService.listarNomencladorDeObraSocial(idObraSocial);
         return ResponseEntity.ok(nomencladoras);
@@ -53,6 +71,11 @@ public class NomencladorPracticaController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un nomenclador", description = "Actualiza los datos de un nomenclador existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Nomenclador actualizado con éxito"),
+            @ApiResponse(responseCode = "400", description = "Datos de actualización inválidos"),
+            @ApiResponse(responseCode = "404", description = "Nomenclador no encontrado con el ID provisto")
+    })
     public ResponseEntity<NomencladorPracticaResponseDTO> actualizarNomenclador(
             @PathVariable Long id,
             @Valid @RequestBody NomencladorPracticaRequestDTO dto) {
@@ -62,6 +85,10 @@ public class NomencladorPracticaController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un nomenclador", description = "Elimina un nomenclador del sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Nomenclador eliminado con éxito (Sin contenido)"),
+            @ApiResponse(responseCode = "404", description = "Nomenclador no encontrado con el ID provisto")
+    })
     public ResponseEntity<Void> eliminarNomenclador(@PathVariable Long id) {
         nomencladorPracticaService.eliminarNomenclador(id);
         return ResponseEntity.noContent().build();

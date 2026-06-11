@@ -4,6 +4,8 @@ import com.utn.DentalOfficeManagement.DTO.Request.PacienteRequestDTO;
 import com.utn.DentalOfficeManagement.DTO.Response.PacienteResponseDTO;
 import com.utn.DentalOfficeManagement.Service.PacienteService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,11 @@ public class PacienteController {
 
     @PostMapping
     @Operation(summary = "Crear un nuevo paciente", description = "Crea un nuevo paciente en el sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Paciente creado con éxito"),
+            @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos (Error de validación)"),
+            @ApiResponse(responseCode = "409", description = "Conflict: Ya existe un paciente con el mismo DNI")
+    })
     public ResponseEntity<PacienteResponseDTO> crearPaciente(@Valid @RequestBody PacienteRequestDTO dto) {
         PacienteResponseDTO paciente = pacienteService.crearPaciente(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(paciente);
@@ -32,6 +39,10 @@ public class PacienteController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener paciente por ID", description = "Obtiene un paciente específico por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Paciente encontrado"),
+            @ApiResponse(responseCode = "404", description = "Paciente no encontrado con el ID provisto")
+    })
     public ResponseEntity<PacienteResponseDTO> obtenerPacientePorId(@PathVariable Long id) {
         PacienteResponseDTO paciente = pacienteService.obtenerPacientePorId(id);
         return ResponseEntity.ok(paciente);
@@ -39,6 +50,9 @@ public class PacienteController {
 
     @GetMapping
     @Operation(summary = "Listar todos los pacientes", description = "Obtiene la lista de todos los pacientes registrados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pacientes obtenida con éxito")
+    })
     public ResponseEntity<List<PacienteResponseDTO>> listarTodos() {
         List<PacienteResponseDTO> pacientes = pacienteService.listarTodos();
         return ResponseEntity.ok(pacientes);
@@ -46,6 +60,9 @@ public class PacienteController {
 
     @GetMapping("/buscar/nombre")
     @Operation(summary = "Buscar pacientes por nombre", description = "Busca pacientes que coincidan con el nombre especificado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pacientes obtenida con éxito")
+    })
     public ResponseEntity<List<PacienteResponseDTO>> buscarPorNombre(@RequestParam String nombre) {
         List<PacienteResponseDTO> pacientes = pacienteService.buscarPorNombre(nombre);
         return ResponseEntity.ok(pacientes);
@@ -53,6 +70,9 @@ public class PacienteController {
 
     @GetMapping("/buscar/dni")
     @Operation(summary = "Buscar pacientes por DNI", description = "Busca pacientes que coincidan con el DNI especificado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pacientes obtenida con éxito")
+    })
     public ResponseEntity<List<PacienteResponseDTO>> buscarPorDni(@RequestParam String dni) {
         List<PacienteResponseDTO> pacientes = pacienteService.buscarPorDni(dni);
         return ResponseEntity.ok(pacientes);
@@ -60,6 +80,9 @@ public class PacienteController {
 
     @GetMapping("/plan/{idPlan}")
     @Operation(summary = "Listar pacientes por plan", description = "Obtiene todos los pacientes asociados a un plan específico")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pacientes obtenida con éxito")
+    })
     public ResponseEntity<List<PacienteResponseDTO>> listarPacientesPorPlan(@PathVariable Long idPlan) {
         List<PacienteResponseDTO> pacientes = pacienteService.listarPacientesPorPlan(idPlan);
         return ResponseEntity.ok(pacientes);
@@ -67,6 +90,10 @@ public class PacienteController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un paciente", description = "Actualiza los datos de un paciente existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Paciente actualizado con éxito"),
+            @ApiResponse(responseCode = "404", description = "Paciente no encontrado con el ID provisto")
+    })
     public ResponseEntity<PacienteResponseDTO> actualizarPaciente(
             @PathVariable Long id,
             @Valid @RequestBody PacienteRequestDTO dto) {
@@ -76,6 +103,10 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un paciente", description = "Elimina un paciente del sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Paciente eliminado con éxito"),
+            @ApiResponse(responseCode = "404", description = "Paciente no encontrado con el ID provisto")
+    })
     public ResponseEntity<Void> eliminarPaciente(@PathVariable Long id) {
         pacienteService.eliminarPaciente(id);
         return ResponseEntity.noContent().build();

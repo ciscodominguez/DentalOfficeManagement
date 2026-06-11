@@ -5,6 +5,8 @@ import com.utn.DentalOfficeManagement.DTO.Request.UsuarioRequestDTO;
 import com.utn.DentalOfficeManagement.DTO.Response.UsuarioResponseDTO;
 import com.utn.DentalOfficeManagement.Service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,11 @@ public class UsuarioController {
 
     @PostMapping
     @Operation(summary = "Crear un nuevo usuario", description = "Crea un nuevo usuario en el sistema con rol asignado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuario creado con éxito"),
+            @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos (Error de validación)"),
+            @ApiResponse(responseCode = "409", description = "Conflict: Ya existe un usuario con el mismo username")
+    })
     public ResponseEntity<UsuarioResponseDTO> crearUsuario(@Valid @RequestBody UsuarioRequestDTO dto) {
         UsuarioResponseDTO usuario = usuarioService.crearUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
@@ -33,6 +40,10 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener usuario por ID", description = "Obtiene un usuario específico por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado con el ID provisto")
+    })
     public ResponseEntity<UsuarioResponseDTO> obtenerUsuarioPorId(@PathVariable Long id) {
         UsuarioResponseDTO usuario = usuarioService.obtenerUsuarioPorId(id);
         return ResponseEntity.ok(usuario);
@@ -40,6 +51,10 @@ public class UsuarioController {
 
     @GetMapping("/username/{username}")
     @Operation(summary = "Obtener usuario por username", description = "Obtiene un usuario específico por su username")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado con el username provisto")
+    })
     public ResponseEntity<UsuarioResponseDTO> obtenerUsuarioPorUsername(@PathVariable String username) {
         UsuarioResponseDTO usuario = usuarioService.obtenerUsuarioPorUsername(username);
         return ResponseEntity.ok(usuario);
@@ -47,6 +62,9 @@ public class UsuarioController {
 
     @GetMapping
     @Operation(summary = "Listar todos los usuarios", description = "Obtiene la lista de todos los usuarios del sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de usuarios obtenida con éxito")
+    })
     public ResponseEntity<List<UsuarioResponseDTO>> listarTodos() {
         List<UsuarioResponseDTO> usuarios = usuarioService.listarTodos();
         return ResponseEntity.ok(usuarios);
@@ -54,6 +72,10 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un usuario", description = "Actualiza los datos de un usuario existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario actualizado con éxito"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado con el ID provisto")
+    })
     public ResponseEntity<UsuarioResponseDTO> actualizarUsuario(
             @PathVariable Long id,
             @Valid @RequestBody UsuarioRequestDTO dto) {
@@ -63,6 +85,10 @@ public class UsuarioController {
 
     @PatchMapping("/{id}/cambiar-contrasenia")
     @Operation(summary = "Cambiar contraseña de usuario", description = "Cambia la contraseña de un usuario específico")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contraseña actualizada con éxito"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado con el ID provisto")
+    })
     public ResponseEntity<UsuarioResponseDTO> cambiarContrasenia(
             @PathVariable Long id,
             @Valid @RequestBody CambiarContraseniaRequestDTO dto) {
@@ -72,6 +98,10 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un usuario", description = "Elimina un usuario del sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario eliminado con éxito"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado con el ID provisto")
+    })
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
