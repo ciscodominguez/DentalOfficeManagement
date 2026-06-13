@@ -3,7 +3,6 @@ package com.utn.DentalOfficeManagement.Model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 
