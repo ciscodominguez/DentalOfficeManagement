@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -15,18 +14,16 @@ public interface PagoRepository extends JpaRepository<Pago, Long> {
     List<Pago> findByMedio(String medio);
 
     @Query("""
-        SELECT p FROM Pago p
-        JOIN PracticaRealizada pr ON pr.pago.idPago = p.idPago
-        JOIN Turno t ON pr.turno.idTurno = t.idTurno
-        WHERE t.paciente.idPaciente = :idPaciente
+        SELECT DISTINCT p FROM Pago p, PracticaRealizada pr
+        WHERE pr.pago = p
+          AND pr.turno.paciente.idPaciente = :idPaciente
     """)
     List<Pago> findByPacienteId(@Param("idPaciente") Long idPaciente);
 
     @Query("""
-        SELECT p FROM Pago p
-        JOIN PracticaRealizada pr ON pr.pago.idPago = p.idPago
-        JOIN Turno t ON pr.turno.idTurno = t.idTurno
-        WHERE t.fecha BETWEEN :desde AND :hasta
+        SELECT DISTINCT p FROM Pago p, PracticaRealizada pr
+        WHERE pr.pago = p
+          AND pr.turno.fecha BETWEEN :desde AND :hasta
     """)
     List<Pago> findByRangoFecha(
             @Param("desde") LocalDate desde,
