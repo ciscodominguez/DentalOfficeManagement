@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -18,5 +19,8 @@ public class PagoResponseDTO {
     private BigDecimal saldo;
     @Schema(description = "Medio de pago utilizado", example = "EFECTIVO")
     private String medio;
+
+    @Schema(description = "Fecha del pago", example = "2024-06-15")
+    private LocalDate fechaPago;
 }
 

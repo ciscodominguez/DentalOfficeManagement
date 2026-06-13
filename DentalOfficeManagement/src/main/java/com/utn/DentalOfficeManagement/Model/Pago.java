@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "pago")
@@ -20,6 +21,9 @@ public class Pago {
 
     @Column(name = "saldo", nullable = false, precision = 10, scale = 2)
     private BigDecimal saldo;
+
+    @Column(name = "fecha", nullable = false)
+    private LocalDate fechaPago;
 
     @Column(name = "medio", nullable = false, length = 50)
     private String medio;
