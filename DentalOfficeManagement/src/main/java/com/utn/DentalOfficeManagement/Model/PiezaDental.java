@@ -2,12 +2,13 @@ package com.utn.DentalOfficeManagement.Model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-
-import java.math.BigDecimal;
+import jakarta.persistence.Id;
 
 @Entity
 @Table(name = "pieza_dental")
@@ -27,4 +28,8 @@ public class PiezaDental {
 
     @Column(name = "observacion", columnDefinition = "TEXT")
     private String observacion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_paciente")
+    private Paciente paciente;
 }

@@ -3,9 +3,12 @@ package com.utn.DentalOfficeManagement.Model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
 @Entity
 @Table(name = "paciente")
@@ -39,4 +42,7 @@ public class Paciente {
 
     @Column(name = "is_embarazada", nullable = false)
     private Boolean isEmbarazada = false;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PiezaDental> piezasDentales = new ArrayList<>();
 }

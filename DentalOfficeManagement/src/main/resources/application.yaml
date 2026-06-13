@@ -11,3 +11,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+jwt:
+  # Clave secreta en Base64 (256 bits). Cambiala en producción.
+  secret: J4wwDwl8p80eX0OxeLFa2gt2M2WV1HAfBevophvKq6s=
+  # Duración del token en milisegundos (acá: 24 horas).
+  expiration: 86400000
