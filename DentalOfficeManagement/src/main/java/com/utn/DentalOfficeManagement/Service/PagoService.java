@@ -47,7 +47,7 @@ public class PagoService {
 
     @Transactional(readOnly = true)
     public List<PagoResponseDTO> listarPagosPorPaciente(Long idPaciente) {
-        return pagoRepository.findByPracticaRealizada_Turno_Paciente_IdPaciente(idPaciente).stream()
+        return pagoRepository.findByPacienteId(idPaciente).stream()
                 .map(pagoMapper::entityToResponseDto)
                 .collect(Collectors.toList());
     }

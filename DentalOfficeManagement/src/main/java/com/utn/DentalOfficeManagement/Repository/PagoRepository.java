@@ -30,7 +30,6 @@ public interface PagoRepository extends JpaRepository<Pago, Long> {
             @Param("hasta") LocalDate hasta
     );
 
-    List<Pago> findByPracticaRealizada_Turno_Paciente_IdPaciente(Long idPaciente);
 
     List<Pago> findByFechaPagoBetween(LocalDate fechaInicio, LocalDate fechaFin);
 }
