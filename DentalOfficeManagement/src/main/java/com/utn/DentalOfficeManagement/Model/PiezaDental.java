@@ -1,14 +1,8 @@
 package com.utn.DentalOfficeManagement.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Id;
 
 @Entity
 @Table(name = "pieza_dental")
@@ -17,8 +11,9 @@ import jakarta.persistence.Id;
 public class PiezaDental {
 
     @Id
-    @Column(name = "id_pieza_dental", unique = true)
-    private Long idPiezaDental; // No auto-generado: número de pieza es fijo (1-32)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // ← agregar esto
+    @Column(name = "id_pieza_dental")
+    private Long idPiezaDental;
 
     @Column(name = "numero_pieza", nullable = false, precision = 5, scale = 2)
     private Integer numeroPieza; // Número de pieza dental (1-32)

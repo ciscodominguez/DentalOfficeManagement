@@ -13,6 +13,7 @@ public interface PacienteMapper {
     @Mapping(target = "plan", ignore = true)
     Paciente requestDtoToEntity(PacienteRequestDTO dto);
 
+    @Mapping(target = "idPlan", source = "plan.idPlan")
     PacienteResponseDTO entityToResponseDto(Paciente entity);
 
     @Mapping(target = "idPaciente", ignore = true)
