@@ -21,5 +21,5 @@ public interface PiezaDentalRepository extends JpaRepository<PiezaDental, Long> 
     """)
     List<PiezaDental> findByPacienteId(@Param("idPaciente") Long idPaciente);
 
-    List<PiezaDental> findByFichaMedica_Paciente_IdPaciente(Long idPaciente);
+    List<PiezaDental> findByPaciente_IdPaciente(Long idPaciente);
 }

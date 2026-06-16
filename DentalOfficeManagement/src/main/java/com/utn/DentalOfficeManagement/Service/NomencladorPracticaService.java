@@ -82,7 +82,7 @@ public class NomencladorPracticaService {
         Practica practica = practicaRepository.findById(dto.getPracticaId())
                 .orElseThrow(() -> new ResourceNotFoundException("Práctica", "id", dto.getPracticaId()));
 
-        if (nomencladorPracticaRepository.existsByObraSocial_IdObraSocialAndPractica_IdPracticaAndIdNomencladorNot(obraSocial.getIdObraSocial(), practica.getIdPractica(), id)) {
+        if (nomencladorPracticaRepository.existsByObraSocial_IdObraSocialAndPractica_IdPracticaAndIdNomencladorPracticaNot(obraSocial.getIdObraSocial(), practica.getIdPractica(), id)) {
             throw new DuplicateResourceException("Nomenclador", "combinación de obra social y práctica", dto.getObraSocialId() + "-" + dto.getPracticaId());
         }
 

@@ -13,5 +13,5 @@ public interface NomencladorPracticaRepository  extends JpaRepository <Nomenclad
 
     List<NomencladorPractica> findByObraSocial_IdObraSocial(Long idObraSocial);
 
-    boolean existsByObraSocial_IdObraSocialAndPractica_IdPracticaAndIdNomencladorNot(Long idObraSocial, Long idPractica, Long id);
+    boolean existsByObraSocial_IdObraSocialAndPractica_IdPracticaAndIdNomencladorPracticaNot(Long idObraSocial, Long idPractica, Long idNomencladorPractica);
 }

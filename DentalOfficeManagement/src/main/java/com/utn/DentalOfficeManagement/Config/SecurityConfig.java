@@ -1,5 +1,6 @@
 package com.utn.DentalOfficeManagement.Config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.utn.DentalOfficeManagement.Security.JwtAuthenticationFilter;
 import com.utn.DentalOfficeManagement.Security.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
@@ -64,4 +65,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+
+
 }

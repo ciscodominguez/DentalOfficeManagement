@@ -46,7 +46,7 @@ public class PiezaDentalService {
 
     @Transactional(readOnly = true)
     public List<PiezaDentalResponseDTO> listarPiezasDentalesdePaciente(Long idPaciente) {
-        return piezaDentalRepository.findByFichaMedica_Paciente_IdPaciente(idPaciente).stream()
+        return piezaDentalRepository. findByPaciente_IdPaciente(idPaciente).stream()
                 .map(piezaDentalMapper::entityToResponseDto)
                 .collect(Collectors.toList());
     }
