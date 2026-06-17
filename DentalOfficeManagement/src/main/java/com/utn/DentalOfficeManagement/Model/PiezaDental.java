@@ -1,6 +1,8 @@
 package com.utn.DentalOfficeManagement.Model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class PiezaDental {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // ← agregar esto
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pieza_dental")
     private Long idPiezaDental;
 

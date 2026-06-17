@@ -8,20 +8,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "DTO que representa los detalles de una pieza dental específica")
+@Schema(description = "DTO que representa los detalles de una pieza dental")
 public class PiezaDentalResponseDTO {
 
-    @Schema(description = "Identificador único de la pieza dental en la base de datos", example = "18")
+    @Schema(description = "Identificador único de la pieza dental", example = "1")
     private Long idPiezaDental;
 
-    @Schema(description = "Número de la pieza dental según el sistema internacional (ej. 11 para el incisivo central superior derecho)",
-            example = "11")
-    private Integer numero;
+    @Schema(description = "Número de pieza dental (1-32)", example = "18")
+    private Integer numeroPieza;
 
-    @Schema(description = "Nombre o tipo de la pieza dental", example = "Incisivo Central")
-    private String nombre;
+    @Schema(description = "Estado de la pieza dental", example = "CARIADO")
+    private String estado;
 
-    @Schema(description = "Sector o cuadrante de la boca donde se ubica la pieza",
-            example = "Superior Derecho")
-    private String posicion;
+    @Schema(description = "Observaciones sobre la pieza dental")
+    private String observacion;
 }
