@@ -1,5 +1,6 @@
 package com.utn.DentalOfficeManagement.Service;
 
+import com.utn.DentalOfficeManagement.DTO.Request.TurnoEstadoDto;
 import com.utn.DentalOfficeManagement.DTO.Request.TurnoRequestDTO;
 import com.utn.DentalOfficeManagement.DTO.Response.TurnoResponseDTO;
 import com.utn.DentalOfficeManagement.Exception.InvalidOperationException;
@@ -121,10 +122,10 @@ public class TurnoService {
         return turnoMapper.toResponse(turnoActualizado);
     }
 
-    public TurnoResponseDTO cambiarEstadoTurno(Long id, String nuevoEstado) {
+    public TurnoResponseDTO cambiarEstadoTurno(Long id, TurnoEstadoDto estadoDto) {
         Turno turno = turnoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Turno", "id", id));
-        turno.setEstado(nuevoEstado);
+        turno.setEstado(estadoDto.getEstado());
         Turno turnoActualizado = turnoRepository.save(turno);
         return turnoMapper.toResponse(turnoActualizado);
     }

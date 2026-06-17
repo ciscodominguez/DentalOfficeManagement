@@ -1,5 +1,6 @@
 package com.utn.DentalOfficeManagement.Controller;
 
+import com.utn.DentalOfficeManagement.DTO.Request.TurnoEstadoDto;
 import com.utn.DentalOfficeManagement.DTO.Request.TurnoRequestDTO;
 import com.utn.DentalOfficeManagement.DTO.Response.TurnoResponseDTO;
 import com.utn.DentalOfficeManagement.Service.TurnoService;
@@ -122,8 +123,8 @@ public class TurnoController {
     })
     public ResponseEntity<TurnoResponseDTO> cambiarEstadoTurno(
             @PathVariable Long id,
-            @RequestParam String estado) {
-        TurnoResponseDTO turno = turnoService.cambiarEstadoTurno(id, estado);
+            @RequestBody TurnoEstadoDto estadoDto) {
+        TurnoResponseDTO turno = turnoService.cambiarEstadoTurno(id, estadoDto);
         return ResponseEntity.ok(turno);
     }
 
