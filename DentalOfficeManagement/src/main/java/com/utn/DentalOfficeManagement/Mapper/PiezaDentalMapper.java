@@ -12,9 +12,9 @@ public interface PiezaDentalMapper {
 
     PiezaDental requestDtoToEntity(PiezaDentalRequestDTO dto);
 
-    @Mapping(target = "numero", source = "numeroPieza")
-    @Mapping(target = "nombre", source = "estado")
-    @Mapping(target = "posicion", source = "observacion")
+    @Mapping(target = "numeroPieza", source = "numeroPieza")
+    @Mapping(target = "estado", source = "estado")
+    @Mapping(target = "observacion", source = "observacion")
     PiezaDentalResponseDTO entityToResponseDto(PiezaDental entity);
 
     void updateEntityFromRequestDto(PiezaDentalRequestDTO dto, @MappingTarget PiezaDental entity);

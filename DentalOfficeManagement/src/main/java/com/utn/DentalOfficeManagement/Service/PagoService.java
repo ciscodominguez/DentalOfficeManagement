@@ -27,6 +27,7 @@ public class PagoService {
 
     public PagoResponseDTO crearPago(PagoRequestDTO dto) {
         Pago pago = pagoMapper.requestDtoToEntity(dto);
+        pago.setFechaPago(LocalDate.now());
         Pago pagoGuardado = pagoRepository.save(pago);
         return pagoMapper.entityToResponseDto(pagoGuardado);
     }
